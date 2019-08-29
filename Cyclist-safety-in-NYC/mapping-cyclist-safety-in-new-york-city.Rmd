@@ -1,0 +1,385 @@
+---
+title: "Mapping Cyclist Safety in New York City"
+description: |
+  Is there a relationship between bike path access and cyclist injuries? 
+preview: preview.jpg
+base_url: https://jasonbixonblog.netlify.com
+author:
+  - name: Jason Bixon
+    url: https://jasonbixon.netlify.com
+    affiliation: Merkle Inc.
+    affiliation_url: https://merkleinc.com
+date: 01-28-2019
+repository_url: https://github.com/jbixon13/Radix-blog
+output:
+  radix::radix_article:
+    self_contained: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r message=FALSE, echo=FALSE, warning=FALSE}
+library(tidyverse)
+library(lubridate)
+library(plotly)
+library(scales)
+library(forecast)
+library(leaflet)
+library(leaflet.extras)
+library(rgdal)
+library(sp)
+library(sf)
+library(htmltools)
+library(nycgeo)
+library(gganimate)
+library(gifski)
+library(mapdeck)
+```
+
+```{r data_read, message=FALSE, echo=FALSE}
+# read in datasets 
+NYPD <- read_csv('data/nypd-motor-vehicle-collisions.csv', col_types = list(DATE = col_character())) # NYPD collision data 
+population <- read_csv('data/New_York_City_Population_By_Neighborhood_Tabulation_Areas.csv') # US census of population by NTA 
+```
+
+I was originally inspired by this [**CityLab**](https://www.citylab.com/perspective/2018/12/new-york-city-electric-bikes-transit-crisis-de-blasio/577969/) article detailing the then-impending transportation crisis due to the L Line shutdown. Specifically, I was interested in observing whether the shutdown contributed to an increase in cyclist injuries due to motor vehicle collisions as about [**275,000 L Line riders**](https://ny.curbed.com/2018/10/3/17925038/nyc-subway-l-train-shutdown-mitigation-alternatives) would have sought alternatives. The MTA averted the shutdown at the 11th hour, leading me to a new research question. 
+
+NYC has seen an [**exponential increase**](http://www.nyc.gov/html/dot/downloads/pdf/cycling-in-the-city.pdf) in bicycle usage in the last 20 years. It reports [**up to 76% fewer**](https://www1.nyc.gov/html/dot/downloads/pdf/nyc-cycling-risk.pdf) injuries or deaths per 10 million miles biked since 2000, a measure of bike safety that controls for increased usage. There is concurrent evidence that [**access to public transit**](https://www.citylab.com/transportation/2015/05/stranded-how-americas-failing-public-transportation-increases-inequality/393506/) is disparate throughout the city. I was unable to find reliable sources on equitable bike lane access. 
+
+I hypothesize there are neighborhoods with outsized shares of cyclist injuries which can be predicted by lack of access to (protected) bike lanes, lack of access to public transit, and faster street traffic. I hope to inform a discussion around resource allocation to low-income neighborhoods where preventable injury and death hamper cyclist transportation.             
+  
+
+### Now let's look at some two-wheeled data.   
+
+```{r date_manipulation, echo=FALSE}
+# convert date to a date variable
+NYPD$DATE <- NYPD$DATE %>% 
+  substr(start = 1, stop = 10) %>% 
+  ymd()
+
+# create summarized subset of NYPD data 
+sub <- NYPD 
+
+# summarize by week
+sub <- sub %>% 
+  filter(DATE > 16438) %>% 
+  mutate(week = floor_date(DATE, 'weeks', week_start = 7)) %>% 
+  group_by(week) %>% 
+  summarize(cyclist_injuries = sum(`NUMBER OF CYCLIST INJURED`))
+
+```
+
+```{r injuries_plotly, echo=FALSE, message=FALSE, out.width='100%'}
+# plot cyclist injuries per week 
+plt.sub <- sub %>% 
+  ggplot(aes(x = week, y = cyclist_injuries)) +
+  geom_point(color = 'steelblue4', alpha = .7) + 
+  geom_smooth(method='lm') + 
+  xlab('Week') +
+  ylab('Cyclist Injuries Per Week') + 
+  theme_classic()
+
+# convert to plotly object
+ggplotly(plt.sub) %>% 
+  layout(title = list(text = 'Cyclist injuries due to vehicle collisions are increasing.',
+                      font = list(
+                        size = 16
+                        )
+                      )
+         ) %>% 
+  config(displayModeBar = FALSE, scrollZoom = FALSE)
+```
+
+### And now a map of cyclist injuries and deaths over the last few years.   
+
+```{r bikepath_read, echo=FALSE, message=FALSE, results='hide'}
+# read in shapefile
+bike_network <- readOGR(dsn = 'data/20180906_current_bike_network', layer = '20180906_current_bike_network')
+
+# convert to sf and transform to web map projection  
+bike_network <- st_as_sf(bike_network)
+bike_network_trans <- st_transform(bike_network, 4326)
+
+bike_network_trans <- bike_network_trans %>% 
+  mutate(labs = paste0('<strong>Street: </strong>', street,
+                       '<br><strong>Installed: </strong>', instdate,
+    '<br><strong>Modified: </strong>', moddate,
+    '<br><strong>Lanes: </strong>', lanecount,
+    '<br><strong>Path Type Endpoint: </strong>', ft_facilit,
+    '<br><strong>Path Type Startpoint: </strong>', tf_facilit))
+
+labs <- as.list(bike_network_trans$labs)
+```
+
+```{r leaflet, echo=FALSE, warning=FALSE, layout='l-screen-inset', fig.height=5}
+# preferCanvas to improve performance with high volume of markers
+map <- leaflet(data = NYPD, options = leafletOptions(minZoom = 11, maxZoom = 18, preferCanvas = TRUE)) %>%
+
+  enableTileCaching() %>%
+  
+  # updateWhenZooming and updateWhenIdle to improve performance 
+  addTiles(group = 'Color', options = tileOptions(updateWhenZooming = FALSE, updateWhenIdle = TRUE)) %>% 
+  addProviderTiles(providers$Stamen.TonerLite, group = 'Grayscale') %>% 
+
+
+  # restrict boundaries to around NYC (doesn't seem to work as expected)
+  fitBounds(lng1 = min(NYPD$LONGITUDE) - 0.11, 
+            lat1 = min(NYPD$LATITUDE) - 0.11,
+            lng2 = max(NYPD$LONGITUDE) + 0.11, 
+            lat2 = max(NYPD$LATITUDE) + 0.11) %>% 
+  
+  # set default view to NYC
+  setView(lng = -73.94, lat = 40.729, zoom = 11) %>%  
+  
+  # add markers where a cyclist was injured or killed, define popup html 
+  addMarkers(clusterOptions = markerClusterOptions(),
+             data = NYPD[NYPD$`NUMBER OF CYCLIST INJURED` > 0 | NYPD$`NUMBER OF CYCLIST KILLED` > 0,],
+             ~LONGITUDE,
+             ~LATITUDE,
+            popup = ~ paste0('<strong>','Date: ', '</strong>', DATE, '<br/>',
+                             '<strong>', 'Time: ', '</strong>', TIME, '<br/>',
+                             '<strong>', 'Injured: ', '</strong>', `NUMBER OF CYCLIST INJURED`, '<br/>',
+                             '<strong>', 'Killed: ', '</strong>', `NUMBER OF CYCLIST KILLED`, '<br/>',
+                             '<strong>', 'Vehicle Type 1: ', '</strong>', `VEHICLE TYPE CODE 1`, '<br/>',
+                             '<strong>', 'Cause - Vehicle 1: ', '</strong>', `CONTRIBUTING FACTOR VEHICLE 1`, '<br/>', 
+                             '<strong>', 'Vehicle Type 2: ', '</strong>', `VEHICLE TYPE CODE 2`, '<br/>',
+                             '<strong>', 'Cause - Vehicle 2: ', '</strong>', `CONTRIBUTING FACTOR VEHICLE 2`)) %>% 
+  
+  # add bike path network, define labels and tooltip options for continuous paths                           
+  addPolylines(data = bike_network_trans,
+              color = 'darkblue',
+              weight = 3,
+              opacity = 1,
+              smoothFactor = .5,
+              label = lapply(labs, HTML),
+              highlightOptions = highlightOptions(color = 'red',
+                                                  weight = 4, 
+                                                  bringToFront = TRUE)) %>% 
+  addResetMapButton() %>% 
+  
+  # Add user controls to toggle groups displayed
+  addLayersControl(
+  baseGroups = c('Color', 'Grayscale'),
+  options = layersControlOptions(collapsed = TRUE)
+  ) %>%
+  
+  addControl("<P style='font-size:10px'>
+              <B>Hint!</B>
+              <br> Zoom in and click on individual points for accident details.
+              <br> Hover over blue lines to see bike path details.
+              </P>",
+  position='bottomleft')
+
+map
+```
+
+```{r mapdeck, layout='l-page', fig.height=4, out.width='100%', fig.align='center'} 
+set_token(Sys.getenv('MAPBOX')) # must use your own Mapbox Access Token if reproducing
+
+mapdeck(style ='mapbox://styles/jbixon/cjxchrj87086s1ct8cs8m351s', # customized map with buildings added
+        location = c(-73.987341, 40.724758),
+        bearing = 14.9,
+        zoom = 12.1,
+        pitch = 45) %>% 
+  add_path(data = bike_network_trans,
+           layer_id = 'paths',
+           auto_highlight = TRUE,
+           stroke_colour = 'ft_facilit',
+           tooltip = 'labs',
+           stroke_width = 3
+           )
+```
+
+
+```{r time-series}
+# convert weekly crash data to a time-series object
+#ts_injuries <- ts(sub$cyclist_injuries, frequency = 52)
+# plot autocorrelation function
+#acf(ts_injuries)
+```
+
+```{r arima, echo=FALSE}
+#arima1 <- auto.arima(ts_injuries, stepwise = FALSE, trace = FALSE)
+#summary(arima1)
+```
+
+```{r bikepath_processing, echo=FALSE}
+# test <- NYPD %>%
+#   filter(LATITUDE != is.na(TRUE)) %>% 
+#   st_as_sf(coords = c('LATITUDE', 'LONGITUDE')) 
+#   
+# test_trans <- test %>% 
+#   st_transform(crs = 4326)
+# 
+# dist <- st_is_within_distance(test_trans, bike_network_trans, dist = 100)
+```
+
+```{r lookup_table, echo=FALSE}
+ 
+year <- rep(2012:2018)
+nta <- rep(1:195)
+
+# create lookup table with patterns for key creation (every NTA repeated for every year)
+lookup <- data.frame(nta = rep(1:195, times = 7), year = rep(year, each = 195)) %>% 
+  mutate(key = paste0(nta, '-', year)) %>% 
+  dplyr::arrange(nta, year)
+```
+
+```{r population_processing, echo=FALSE}
+# prep population dataset for joining to nyc_poly
+population <- population %>% 
+  filter(Year == 2010) %>% 
+  select(`NTA Code`, Population) %>% 
+  rename(nta_id = `NTA Code`)
+```
+
+```{r point_aggregation_and_joining, echo=FALSE}
+# get Neighborhood Tabulation Area boundaries and join to population by NTA
+nyc_poly <- nyc_boundaries(geography = "nta") %>%
+  st_transform(4326) %>% 
+  mutate(nta = rep(1:195)) %>% 
+  left_join(population, by = 'nta_id')
+
+# prep accident data for spatial operations (keep only geotagged & cyclist accidents)
+NYPD_sum <- NYPD %>%
+  filter(LATITUDE != is.na(TRUE)) %>%
+  filter(`NUMBER OF CYCLIST INJURED` > 0) %>%
+  st_as_sf(coords = c('LONGITUDE', 'LATITUDE'), crs = 4326)
+
+# identify which accidents (points) intersect with NTAs (polygons)
+# think it's giving me the indexes of accidents for each nta, need to figure out how to get date info from index
+#lengths(st_intersects(nyc_poly, tst))
+
+# try reversing the process: instead of count of intersections for each polygon, do st_intersects for each point so that each point is assigned a polygon it intersects with, then group_by day and polygon
+#head(st_intersects(tst, nyc_poly))
+
+NYPD_sum <- NYPD_sum %>%
+  mutate(nta = as.numeric(st_intersects(NYPD_sum, nyc_poly))) %>%
+  # floor accidents by year and clean dates for further joins and processing
+  mutate(year = substr(floor_date(DATE, unit = 'year'), start = 1, stop = 4)) %>%
+  group_by(nta, year) %>%
+  # get count of accidents per year and NTA 
+  summarize(accident_count = n()) %>% 
+  mutate(key = paste0(nta, '-', year))
+
+# join accident counts to lookup table (to solve problem of rows with 0 accidents being dropped)
+join <- lookup %>% 
+  left_join(NYPD_sum, by = 'key') %>% 
+  arrange(nta.x, year.x) %>% 
+  mutate(accident_count = if_else(is.na(accident_count), 0, as.double(accident_count))) %>% 
+  select(-nta.y, -year.y) %>% 
+  rename(nta = nta.x) %>% 
+  rename(year = year.x)
+
+# have summary by nta and month, but geometry is list of points, not polygon of nta. Need to replace with polygon for map visualization
+join_poly <- join %>% 
+  inner_join(as.data.frame(nyc_poly), by = 'nta') %>% 
+  as.data.frame() %>% 
+  select(-geometry.x) %>% 
+  rename(geometry = geometry.y) %>% 
+  # calculate accidents per capita from accidents and population per NTA 
+  mutate(accidents_per_capita = accident_count / Population) %>% 
+  # orders of magnitude difference, try square root transform
+  mutate(accidents_per_capita_sqrt = sqrt(accidents_per_capita)) %>%
+  # remove unnecesary variables, reorder remaining vars
+  select(-state_fips, -county_fips, -county_name, -borough_id, -puma_id, -puma_name) %>% 
+  select(nta, year, key, nta_id, nta_name, borough_name, accident_count,
+         Population, accidents_per_capita, accidents_per_capita_sqrt, geometry) %>% 
+  st_as_sf()
+```
+
+Recreating the DOT's cyclist safety metric across neighborhoods proves difficult with existing data. Their metric is available as-is and tracks injuries and deaths per 10 million miles over time, but there is no source that tracks miles biked in any strict location-based dimension. 
+
+I use NTA population as a proxy for bike ridership with the understanding that neighborhood population doesn't directly correlate with ridership. This is done to control for dense neighborhoods that may have higher incidence of accidents due to more people traveling through them.  
+
+```{r animated_map, echo=FALSE, layout='l-screen-inset'}
+# create chloropleth map with accidents per capita fill, change graphics options for 1080p export
+map_base <- ggplot(join_poly) +
+  geom_sf(aes(fill = accidents_per_capita_sqrt)) +
+  scale_fill_viridis_c() +
+  theme_void() +
+  theme(plot.title = element_text(size = 30)) +
+  theme(plot.subtitle = element_text(size = 22)) +
+  theme(legend.key.size = unit(1, 'in')) + 
+  theme(legend.title = element_text(size = 24)) + 
+  theme(legend.text = element_text(size = 20)) +
+  theme(panel.grid = element_line(color = "transparent")) 
+
+#map_base
+
+# animate by year, identify current year in title
+anim <- map_base +
+  labs(title = 'Cyclist injuries per capita per year in NYC', subtitle = 'Year: {closest_state}') +
+  transition_states(year)
+
+#anim
+
+anim <- animate(anim, width = 1920, height = 1080)
+anim
+#anim_save(filename = anim.gif)
+```
+
+```{r}
+path_base <- ggplot(bike_network_trans) +
+  geom_sf() +
+  theme_void() + 
+  theme(panel.grid = element_line(color = "transparent")) 
+
+path_base
+# 
+# path_anim <- path_base + 
+#   transition_states(instdate)
+# 
+# path_anim
+```
+
+```{r}
+tst <- bike_network_trans %>% 
+  mutate(year_installed = year(instdate)) %>%
+  group_by(year_installed, ft_facilit) %>% 
+  arrange(year_installed, ft_facilit) %>% 
+  mutate(cum_miles = cumsum(LaneMiles)) %>%   
+  summarize(count = n(), miles = max(cum_miles))
+
+ggplot(tst) + 
+  geom_line(aes(x = year_installed, y = miles))
+```
+
+
+
+```{r notes}
+#introduction - need to redo
+# trend scatter plot - done, maybe look into time-series analysis
+# gif of NTAs - have accident counts, change to accidents/NTA population (and acknowledge issues with using 2010 survey data but it's better than a simple population map)
+# bar plot of accident causes - not done
+# leaflet - done, consider any simplifications but likely done
+# model predicting bike path/path type - not done 
+# aadt traffic / volume measurements of traffic 
+# look at how cities measure volume or traffic for cars and emulate for bikes
+# strava geolocation for bike data ??
+# conclusions - not done
+# seperate post about point aggregation in chloropleths - not until all else done 
+```
+
+***
+
+### Planned Updates / Notes:    
+
+This is an ongoing project that I am doing in my free time. If you have any constructive criticism please feel free to reach out, especially with suggestions about spatial regression methodology.  
+
+* Methodology
+    + Need a way to do geospatial predictive modeling with a dataset that only has 1s, no 0s
+    + How to understand relationship between accidents when we only have accident data, not non-accidents
+    + Consider using Citibike data as a proxy to cyclist population, but do they behave differently?
+    + Look into spatial prediction methods (spatial autocorrelation, spatial regression, etc.)
+    + What trends are there in types of bike paths being constructed over time?
+* Time-Series
+    + More rigorous analysis of cyclist injuries
+    + Use ARIMA model to remove seasonality, conclude whether injuries are increasing
+    + Are injuries increasing because more people are biking or something else?    
+* Geospatial
+    + Consider changing map to chloropleths (and use accidents per capita)
+    + Find a way to visualize changes over time, whether through leaflet or gganimate or otherwise
+    + Need function that can calculate a point's (accident) nearest polyline (bike path) and return features (type of path)  
