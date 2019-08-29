@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="generator" content="distill" />
+
+  <style type="text/css">
+  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
+  body {
+    visibility: hidden;
+  }
+  </style>
+
+ <!--radix_placeholder_import_source-->
+ <!--/radix_placeholder_import_source-->
+
+  <!--radix_placeholder_meta_tags-->
+  <title>MTA Doom and Gloom</title>
+  
+  <meta property="description" itemprop="description" content="Is the NYC subway system as dire as we say it is?"/>
+  
+  
+  <!--  https://schema.org/Article -->
+  <meta property="article:published" itemprop="datePublished" content="2019-04-14"/>
+  <meta property="article:created" itemprop="dateCreated" content="2019-04-14"/>
+  <meta name="article:author" content="Jason Bixon"/>
+  
+  <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
+  <meta property="og:title" content="MTA Doom and Gloom"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:description" content="Is the NYC subway system as dire as we say it is?"/>
+  <meta property="og:locale" content="en_US"/>
+  
+  <!--  https://dev.twitter.com/cards/types/summary -->
+  <meta property="twitter:card" content="summary"/>
+  <meta property="twitter:title" content="MTA Doom and Gloom"/>
+  <meta property="twitter:description" content="Is the NYC subway system as dire as we say it is?"/>
+  
+  <!--/radix_placeholder_meta_tags-->
+  <!--radix_placeholder_rmarkdown_metadata-->
+  
+  <script type="text/json" id="radix-rmarkdown-metadata">
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","preview","author","date","repository_url","output"]}},"value":[{"type":"character","attributes":{},"value":["MTA Doom and Gloom"]},{"type":"character","attributes":{},"value":["Is the NYC subway system as dire as we say it is?\n"]},{"type":"character","attributes":{},"value":["preview.gif"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Jason Bixon"]},{"type":"character","attributes":{},"value":["https://jasonbixonblog.netlify.com"]},{"type":"character","attributes":{},"value":["Merkle Inc."]},{"type":"character","attributes":{},"value":["https://merkleinc.com"]}]}]},{"type":"character","attributes":{},"value":["04-14-2019"]},{"type":"character","attributes":{},"value":["https://github.com/jbixon13/Radix-blog"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
+  </script>
+  <!--/radix_placeholder_rmarkdown_metadata-->
+  
+  <script type="text/json" id="radix-resource-manifest">
+  {"type":"character","attributes":{},"value":["data/metropolitan-transportation-authority-mta-performance-indicators-per-agency-beginning-2008.csv","MTA-dash1.jpg","MTA-dash2.jpg","mta-shutdown_files/bowser-1.9.3/bowser.min.js","mta-shutdown_files/crosstalk-1.0.0/css/crosstalk.css","mta-shutdown_files/crosstalk-1.0.0/js/crosstalk.js","mta-shutdown_files/crosstalk-1.0.0/js/crosstalk.js.map","mta-shutdown_files/crosstalk-1.0.0/js/crosstalk.min.js","mta-shutdown_files/crosstalk-1.0.0/js/crosstalk.min.js.map","mta-shutdown_files/distill-2.2.21/template.v2.js","mta-shutdown_files/htmlwidgets-1.3/htmlwidgets.js","mta-shutdown_files/jquery-1.11.3/jquery-AUTHORS.txt","mta-shutdown_files/jquery-1.11.3/jquery.js","mta-shutdown_files/jquery-1.11.3/jquery.min.js","mta-shutdown_files/jquery-1.11.3/jquery.min.map","mta-shutdown_files/plotly-binding-4.9.0/plotly.js","mta-shutdown_files/plotly-htmlwidgets-css-1.46.1/plotly-htmlwidgets.css","mta-shutdown_files/plotly-main-1.46.1/plotly-latest.min.js","mta-shutdown_files/typedarray-0.1/typedarray.min.js","mta-shutdown_files/webcomponents-2.0.0/webcomponents.js","preview.gif"]}
+  </script>
+  <!--radix_placeholder_navigation_in_header-->
+  <!--/radix_placeholder_navigation_in_header-->
+  <!--radix_placeholder_distill-->
+  
+  <style type="text/css">
+  
+  body {
+    background-color: white;
+  }
+  
+  .pandoc-table {
+    width: 100%;
+  }
+  
+  .pandoc-table>caption {
+    margin-bottom: 10px;
+  }
+  
+  .pandoc-table th:not([align]) {
+    text-align: left;
+  }
+  
+  .pagedtable-footer {
+    font-size: 15px;
+  }
+  
+  .html-widget {
+    margin-bottom: 2.0em;
+  }
+  
+  .l-screen-inset {
+    padding-right: 16px;
+  }
+  
+  .l-screen .caption {
+    margin-left: 10px;
+  }
+  
+  .shaded {
+    background: rgb(247, 247, 247);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  .shaded .html-widget {
+    margin-bottom: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  .shaded .shaded-content {
+    background: white;
+  }
+  
+  .text-output {
+    margin-top: 0;
+    line-height: 1.5em;
+  }
+  
+  .hidden {
+    display: none !important;
+  }
+  
+  d-article {
+    padding-bottom: 30px;
+  }
+  
+  d-appendix {
+    padding-top: 30px;
+  }
+  
+  d-article>p>img {
+    width: 100%;
+  }
+  
+  d-article iframe {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 2.0em;
+    width: 100%;
+  }
+  
+  figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+  
+  /* CSS for table of contents */
+  
+  .d-toc {
+    color: rgba(0,0,0,0.8);
+    font-size: 0.8em;
+    line-height: 1em;
+  }
+  
+  .d-toc-header {
+    font-size: 0.6rem;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.5);
+    text-transform: uppercase;
+    margin-top: 0;
+    margin-bottom: 1.3em;
+  }
+  
+  .d-toc a {
+    border-bottom: none;
+  }
+  
+  .d-toc ul {
+    padding-left: 0;
+  }
+  
+  .d-toc li>ul {
+    padding-top: 0.8em;
+    padding-left: 16px;
+    margin-bottom: 0.6em;
+  }
+  
+  .d-toc ul,
+  .d-toc li {
+    list-style-type: none;
+  }
+  
+  .d-toc li {
+    margin-bottom: 0.9em;
+  }
+  
+  .d-toc-separator {
+    margin-top: 20px;
+    margin-bottom: 2em;
+  }
+  
+  .d-article-with-toc {
+    border-top: none;
+    padding-top: 0;
+  }
+  
+  
+  
+  /* Tweak code blocks (note that this CSS is repeated above in an injection
+     into the d-code shadow dom) */
+  
+  d-code {
+    overflow-x: auto !important;
+  }
+  
+  pre.d-code code.d-code {
+    padding-left: 10px;
+    font-size: 12px;
+    border-left: 2px solid rgba(0,0,0,0.1);
+  }
+  
+  pre.text-output {
+  
+    font-size: 12px;
+    color: black;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+  
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+  
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+  
+  @media(min-width: 768px) {
+  
+  d-code {
+    overflow-x: visible !important;
+  }
+  
+  pre.d-code code.d-code  {
+      padding-left: 18px;
+      font-size: 14px;
+  }
+  pre.text-output {
+    font-size: 14px;
+  }
+  }
+  
+  /* Figure */
+  
+  .figure {
+    position: relative;
+    margin-bottom: 2.5em;
+    margin-top: 1.5em;
+  }
+  
+  .figure img {
+    width: 100%;
+  }
+  
+  .figure .caption {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    line-height: 1.5em;
+  }
+  
+  .figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+  
+  .figure .caption a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+  
+  .figure .caption b,
+  .figure .caption strong, {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 1.0);
+  }
+  
+  
+  
+  /* Tweak 1000px media break to show more text */
+  
+  @media(min-width: 1000px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 16px;
+    }
+  
+    .grid {
+      grid-column-gap: 16px;
+    }
+  
+    d-article {
+      font-size: 1.06rem;
+      line-height: 1.7em;
+    }
+    figure .caption, .figure .caption, figure figcaption {
+      font-size: 13px;
+    }
+  }
+  
+  @media(min-width: 1180px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 32px;
+    }
+  
+    .grid {
+      grid-column-gap: 32px;
+    }
+  }
+  
+  
+  /* Get the citation styles for the appendix (not auto-injected on render since
+     we do our own rendering of the citation appendix) */
+  
+  d-appendix .citation-appendix,
+  .d-appendix .citation-appendix {
+    font-size: 11px;
+    line-height: 15px;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    padding-left: 18px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.02);
+    padding: 10px 18px;
+    border-radius: 3px;
+    color: rgba(150, 150, 150, 1);
+    overflow: hidden;
+    margin-top: -12px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  
+  
+  /* Social footer */
+  
+  .social_footer {
+    margin-top: 30px;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.67);
+  }
+  
+  .disqus-comments {
+    margin-right: 30px;
+  }
+  
+  .disqus-comment-count {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+  }
+  
+  #disqus_thread {
+    margin-top: 30px;
+  }
+  
+  .article-sharing a {
+    border-bottom: none;
+    margin-right: 8px;
+  }
+  
+  .article-sharing a:hover {
+    border-bottom: none;
+  }
+  
+  .sidebar-section.subscribe {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+  
+  .subscribe p {
+    margin-bottom: 0.5em;
+  }
+  
+  
+  .article-footer .subscribe {
+    font-size: 15px;
+    margin-top: 45px;
+  }
+  
+  
+  /* Improve display for browsers without grid (IE/Edge <= 15) */
+  
+  .downlevel {
+    line-height: 1.6em;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+  }
+  
+  .downlevel .d-title {
+    padding-top: 6rem;
+    padding-bottom: 1.5rem;
+  }
+  
+  .downlevel .d-title h1 {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1.1em;
+    margin: 0 0 0.5rem;
+  }
+  
+  .downlevel .d-title p {
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.55em;
+    margin-top: 0;
+  }
+  
+  .downlevel .d-byline {
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+    font-size: 0.8rem;
+    line-height: 1.8em;
+  }
+  
+  .downlevel .section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  .downlevel .d-article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+  
+  
+  .downlevel .d-appendix {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: none;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.5);
+    padding-top: 40px;
+    padding-bottom: 48px;
+  }
+  
+  .downlevel .footnotes ol {
+    padding-left: 13px;
+  }
+  
+  .downlevel .base-grid,
+  .downlevel .distill-header,
+  .downlevel .d-title,
+  .downlevel .d-abstract,
+  .downlevel .d-article,
+  .downlevel .d-appendix,
+  .downlevel .distill-appendix,
+  .downlevel .d-byline,
+  .downlevel .d-footnote-list,
+  .downlevel .d-citation-list,
+  .downlevel .distill-footer,
+  .downlevel .appendix-bottom,
+  .downlevel .posts-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+  
+  @media(min-width: 768px) {
+    .downlevel .base-grid,
+    .downlevel .distill-header,
+    .downlevel .d-title,
+    .downlevel .d-abstract,
+    .downlevel .d-article,
+    .downlevel .d-appendix,
+    .downlevel .distill-appendix,
+    .downlevel .d-byline,
+    .downlevel .d-footnote-list,
+    .downlevel .d-citation-list,
+    .downlevel .distill-footer,
+    .downlevel .appendix-bottom,
+    .downlevel .posts-container {
+    padding-left: 150px;
+    padding-right: 150px;
+    max-width: 900px;
+  }
+  }
+  
+  .downlevel pre code {
+    display: block;
+    border-left: 2px solid rgba(0, 0, 0, .1);
+    padding: 0 0 0 20px;
+    font-size: 14px;
+  }
+  
+  .downlevel code, .downlevel pre {
+    color: black;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+  
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+  
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+  
+  </style>
+  
+  <script type="application/javascript">
+  
+  function is_downlevel_browser() {
+    if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
+                                   window.navigator.userAgent)) {
+      return true;
+    } else {
+      return window.load_distill_framework === undefined;
+    }
+  }
+  
+  // show body when load is complete
+  function on_load_complete() {
+  
+    // set body to visible
+    document.body.style.visibility = 'visible';
+  
+    // force redraw for leaflet widgets
+    if (window.HTMLWidgets) {
+      var maps = window.HTMLWidgets.findAll(".leaflet");
+      $.each(maps, function(i, el) {
+        var map = this.getMap();
+        map.invalidateSize();
+        map.eachLayer(function(layer) {
+          if (layer instanceof L.TileLayer)
+            layer.redraw();
+        });
+      });
+    }
+  
+    // trigger 'shown' so htmlwidgets resize
+    $('d-article').trigger('shown');
+  }
+  
+  function init_distill() {
+  
+    init_common();
+  
+    // create front matter
+    var front_matter = $('<d-front-matter></d-front-matter>');
+    $('#distill-front-matter').wrap(front_matter);
+  
+    // create d-title
+    $('.d-title').changeElementType('d-title');
+  
+    // create d-byline
+    var byline = $('<d-byline></d-byline>');
+    $('.d-byline').replaceWith(byline);
+  
+    // create d-article
+    var article = $('<d-article></d-article>');
+    $('.d-article').wrap(article).children().unwrap();
+  
+    // move posts container into article
+    $('.posts-container').appendTo($('d-article'));
+  
+    // create d-appendix
+    $('.d-appendix').changeElementType('d-appendix');
+  
+    // create d-bibliography
+    var bibliography = $('<d-bibliography></d-bibliography>');
+    $('#distill-bibliography').wrap(bibliography);
+  
+    // flag indicating that we have appendix items
+    var appendix = $('.appendix-bottom').children('h3').length > 0;
+  
+    // replace citations with <d-cite>
+    $('.citation').each(function(i, val) {
+      appendix = true;
+      var cites = $(this).attr('data-cites').split(" ");
+      var dt_cite = $('<d-cite></d-cite>');
+      dt_cite.attr('key', cites.join());
+      $(this).replaceWith(dt_cite);
+    });
+    // remove refs
+    $('#refs').remove();
+  
+    // replace footnotes with <d-footnote>
+    $('.footnote-ref').each(function(i, val) {
+      appendix = true;
+      var href = $(this).attr('href');
+      var id = href.replace('#', '');
+      var fn = $('#' + id);
+      var fn_p = $('#' + id + '>p');
+      fn_p.find('.footnote-back').remove();
+      var text = fn_p.html();
+      var dtfn = $('<d-footnote></d-footnote>');
+      dtfn.html(text);
+      $(this).replaceWith(dtfn);
+    });
+    // remove footnotes
+    $('.footnotes').remove();
+  
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      var id = $(this).attr('id');
+      $('.d-toc a[href="#' + id + '"]').parent().remove();
+      appendix = true;
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
+    });
+  
+    // show d-appendix if we have appendix content
+    $("d-appendix").css('display', appendix ? 'grid' : 'none');
+  
+    // replace code blocks with d-code
+    $('pre>code').each(function(i, val) {
+      var code = $(this);
+      var pre = code.parent();
+      var clz = "";
+      var language = pre.attr('class');
+      if (language) {
+        // map unknown languages to "clike" (without this they just dissapear)
+        if ($.inArray(language, ["bash", "clike", "css", "go", "html",
+                                 "javascript", "js", "julia", "lua", "markdown",
+                                 "markup", "mathml", "python", "svg", "xml"]) == -1)
+          language = "clike";
+        language = ' language="' + language + '"';
+        var dt_code = $('<d-code block' + language + clz + '></d-code>');
+        dt_code.text(code.text());
+        pre.replaceWith(dt_code);
+      } else {
+        code.addClass('text-output').unwrap().changeElementType('pre');
+      }
+    });
+  
+    // localize layout chunks to just output
+    $('.layout-chunk').each(function(i, val) {
+  
+      // capture layout
+      var layout = $(this).attr('data-layout');
+  
+      // apply layout to markdown level block elements
+      var elements = $(this).children().not('d-code, pre.text-output, script');
+      elements.each(function(i, el) {
+        var layout_div = $('<div class="' + layout + '"></div>');
+        if (layout_div.hasClass('shaded')) {
+          var shaded_content = $('<div class="shaded-content"></div>');
+          $(this).wrap(shaded_content);
+          $(this).parent().wrap(layout_div);
+        } else {
+          $(this).wrap(layout_div);
+        }
+      });
+  
+  
+      // unwrap the layout-chunk div
+      $(this).children().unwrap();
+    });
+  
+    // load distill framework
+    load_distill_framework();
+  
+    // wait for window.distillRunlevel == 4 to do post processing
+    function distill_post_process() {
+  
+      if (!window.distillRunlevel || window.distillRunlevel < 4)
+        return;
+  
+      // hide author/affiliations entirely if we have no authors
+      var front_matter = JSON.parse($("#distill-front-matter").html());
+      var have_authors = front_matter.authors && front_matter.authors.length > 0;
+      if (!have_authors)
+        $('d-byline').addClass('hidden');
+  
+      // table of contents
+      if (have_authors) // adjust border if we are in authors
+        $('.d-toc').parent().addClass('d-article-with-toc');
+  
+      // strip links that point to #
+      $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
+  
+      // hide elements of author/affiliations grid that have no value
+      function hide_byline_column(caption) {
+        $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
+      }
+  
+      // affiliations
+      var have_affiliations = false;
+      for (var i = 0; i<front_matter.authors.length; ++i) {
+        var author = front_matter.authors[i];
+        if (author.affiliation !== "&nbsp;") {
+          have_affiliations = true;
+          break;
+        }
+      }
+      if (!have_affiliations)
+        $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
+  
+      // published date
+      if (!front_matter.publishedDate)
+        hide_byline_column("Published");
+  
+      // document object identifier
+      var doi = $('d-byline').find('h3:contains("DOI")');
+      var doi_p = doi.next().empty();
+      if (!front_matter.doi) {
+        // if we have a citation and valid citationText then link to that
+        if ($('#citation').length > 0 && front_matter.citationText) {
+          doi.html('Citation');
+          $('<a href="#citation"></a>')
+            .text(front_matter.citationText)
+            .appendTo(doi_p);
+        } else {
+          hide_byline_column("DOI");
+        }
+      } else {
+        $('<a></a>')
+           .attr('href', "https://doi.org/" + front_matter.doi)
+           .html(front_matter.doi)
+           .appendTo(doi_p);
+      }
+  
+       // change plural form of authors/affiliations
+      if (front_matter.authors.length === 1) {
+        var grid = $('.authors-affiliations');
+        grid.children('h3:contains("Authors")').text('Author');
+        grid.children('h3:contains("Affiliations")').text('Affiliation');
+      }
+  
+      // inject pre code styles (can't do this with a global stylesheet b/c a shadow root is used)
+      $('d-code').each(function(i, val) {
+        var style = document.createElement('style');
+        style.innerHTML = 'pre code { padding-left: 10px; font-size: 12px; border-left: 2px solid rgba(0,0,0,0.1); } ' +
+                          '@media(min-width: 768px) { pre code { padding-left: 18px; font-size: 14px; } }';
+        if (this.shadowRoot)
+          this.shadowRoot.appendChild(style);
+      });
+  
+      // move appendix-bottom entries to the bottom
+      $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
+      $('.appendix-bottom').remove();
+  
+      // clear polling timer
+      clearInterval(tid);
+  
+      // show body now that everything is ready
+      on_load_complete();
+    }
+  
+    var tid = setInterval(distill_post_process, 50);
+    distill_post_process();
+  
+  }
+  
+  function init_downlevel() {
+  
+    init_common();
+  
+     // insert hr after d-title
+    $('.d-title').after($('<hr class="section-separator"/>'));
+  
+    // check if we have authors
+    var front_matter = JSON.parse($("#distill-front-matter").html());
+    var have_authors = front_matter.authors && front_matter.authors.length > 0;
+  
+    // manage byline/border
+    if (!have_authors)
+      $('.d-byline').remove();
+    $('.d-byline').after($('<hr class="section-separator"/>'));
+    $('.d-byline a').remove();
+  
+    // remove toc
+    $('.d-toc-header').remove();
+    $('.d-toc').remove();
+    $('.d-toc-separator').remove();
+  
+    // move appendix elements
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
+    });
+  
+  
+    // inject headers into references and footnotes
+    var refs_header = $('<h3></h3>');
+    refs_header.text('References');
+    $('#refs').prepend(refs_header);
+  
+    var footnotes_header = $('<h3></h3');
+    footnotes_header.text('Footnotes');
+    $('.footnotes').children('hr').first().replaceWith(footnotes_header);
+  
+    // move appendix-bottom entries to the bottom
+    $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
+    $('.appendix-bottom').remove();
+  
+    // remove appendix if it's empty
+    if ($('.d-appendix').children().length === 0)
+      $('.d-appendix').remove();
+  
+    // prepend separator above appendix
+    $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
+  
+    // trim code
+    $('pre>code').each(function(i, val) {
+      $(this).html($.trim($(this).html()));
+    });
+  
+    // move posts-container right before article
+    $('.posts-container').insertBefore($('.d-article'));
+  
+    $('body').addClass('downlevel');
+  
+    on_load_complete();
+  }
+  
+  
+  function init_common() {
+  
+    // jquery plugin to change element types
+    (function($) {
+      $.fn.changeElementType = function(newType) {
+        var attrs = {};
+  
+        $.each(this[0].attributes, function(idx, attr) {
+          attrs[attr.nodeName] = attr.nodeValue;
+        });
+  
+        this.replaceWith(function() {
+          return $("<" + newType + "/>", attrs).append($(this).contents());
+        });
+      };
+    })(jQuery);
+  
+    // prevent underline for linked images
+    $('a > img').parent().css({'border-bottom' : 'none'});
+  
+    // mark non-body figures created by knitr chunks as 100% width
+    $('.layout-chunk').each(function(i, val) {
+      var figures = $(this).find('img, .html-widget');
+      if ($(this).attr('data-layout') !== "l-body") {
+        figures.css('width', '100%');
+      } else {
+        figures.css('max-width', '100%');
+        figures.filter("[width]").each(function(i, val) {
+          var fig = $(this);
+          fig.css('width', fig.attr('width') + 'px');
+        });
+  
+      }
+    });
+  
+    // auto-append index.html to post-preview links in file: protocol
+    // and in rstudio ide preview
+    $('.post-preview').each(function(i, val) {
+      if (window.location.protocol === "file:")
+        $(this).attr('href', $(this).attr('href') + "index.html");
+    });
+  
+    // get rid of index.html references in header
+    if (window.location.protocol !== "file:") {
+      $('.distill-site-header a[href]').each(function(i,val) {
+        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+      });
+    }
+  
+    // add class to pandoc style tables
+    $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
+    $('.kable-table').children('table').addClass('pandoc-table');
+  
+    // add figcaption style to table captions
+    $('caption').parent('table').addClass("figcaption");
+  
+    // initialize posts list
+    if (window.init_posts_list)
+      window.init_posts_list();
+  
+    // implmement disqus comment link
+    $('.disqus-comment-count').click(function() {
+      window.headroom_prevent_pin = true;
+      $('#disqus_thread').toggleClass('hidden');
+      if (!$('#disqus_thread').hasClass('hidden')) {
+        var offset = $(this).offset();
+        $(window).resize();
+        $('html, body').animate({
+          scrollTop: offset.top - 35
+        });
+      }
+    });
+  }
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    if (is_downlevel_browser())
+      init_downlevel();
+    else
+      window.addEventListener('WebComponentsReady', init_distill);
+  });
+  
+  </script>
+  
+  <!--/radix_placeholder_distill-->
+  <script src="mta-shutdown_files/htmlwidgets-1.3/htmlwidgets.js"></script>
+  <script src="mta-shutdown_files/plotly-binding-4.9.0/plotly.js"></script>
+  <script src="mta-shutdown_files/typedarray-0.1/typedarray.min.js"></script>
+  <script src="mta-shutdown_files/jquery-1.11.3/jquery.min.js"></script>
+  <link href="mta-shutdown_files/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+  <script src="mta-shutdown_files/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+  <link href="mta-shutdown_files/plotly-htmlwidgets-css-1.46.1/plotly-htmlwidgets.css" rel="stylesheet" />
+  <script src="mta-shutdown_files/plotly-main-1.46.1/plotly-latest.min.js"></script>
+  <script src="mta-shutdown_files/bowser-1.9.3/bowser.min.js"></script>
+  <script src="mta-shutdown_files/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="mta-shutdown_files/distill-2.2.21/template.v2.js"></script>
+  <!--radix_placeholder_site_in_header-->
+  <!--/radix_placeholder_site_in_header-->
+
+
+</head>
+
+<body>
+
+<!--radix_placeholder_front_matter-->
+
+<script id="distill-front-matter" type="text/json">
+{"title":"MTA Doom and Gloom","description":"Is the NYC subway system as dire as we say it is?","authors":[{"author":"Jason Bixon","authorURL":"https://jasonbixonblog.netlify.com","affiliation":"Merkle Inc.","affiliationURL":"https://merkleinc.com"}],"publishedDate":"2019-04-14T00:00:00.000-04:00","citationText":"Bixon, 2019"}
+</script>
+
+<!--/radix_placeholder_front_matter-->
+<!--radix_placeholder_navigation_before_body-->
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="d-title">
+<h1>MTA Doom and Gloom</h1>
+<p>Is the NYC subway system as dire as we say it is?</p>
+</div>
+
+<div class="d-byline">
+  Jason Bixon <a href="https://jasonbixonblog.netlify.com" class="uri">https://jasonbixonblog.netlify.com</a> (Merkle Inc.)<a href="https://merkleinc.com" class="uri">https://merkleinc.com</a>
+  
+<br/>04-14-2019
+</div>
+
+<div class="d-article">
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<p>It’s no secret that New Yorkers love to hate their subway system. I was inspired to more critically analyze it after reading this <a href="https://www.citylab.com/transportation/2018/04/why-new-york-city-stopped-building-subways/557567/"><strong>CityLab</strong></a> article that contextualizes the history of the MTA. I am specifically interested in whether it truly is degrading by using their publically maintained performance metrics. Some of these metrics have opaque names, so I’ll specify where necessary.</p>
+<hr />
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div id="htmlwidget-1a0c877ebfc857f652ed" style="width:100%;height:384px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1a0c877ebfc857f652ed">{"x":{"data":[{"x":[16467,16495,16526,16556,16587,16617,16648,16679,16709,16740,16770,16801,16832,16861,16892,16922,16953,16983,17014,17045,17075,17106,17136,17167,17198,17226,17257,17287,17318,17348,17379,17410,17440,17471,17501],"y":[130778251,153076928,150348150,151418931,152034275,148098272,139974023,146515000,161124042,144519447,150834412,136413951,136690795,156297328,147291655,151910204,151007041,139851426,143703034,148467391,150638608,147033943,147509424,140288294,130465060,151384924,143284553,153470353,149360780,137447659,141721056,143012669,153344574,144357826,139097559],"text":["Period: 2015-02-01<br />`Monthly Actual`: 130778251","Period: 2015-03-01<br />`Monthly Actual`: 153076928","Period: 2015-04-01<br />`Monthly Actual`: 150348150","Period: 2015-05-01<br />`Monthly Actual`: 151418931","Period: 2015-06-01<br />`Monthly Actual`: 152034275","Period: 2015-07-01<br />`Monthly Actual`: 148098272","Period: 2015-08-01<br />`Monthly Actual`: 139974023","Period: 2015-09-01<br />`Monthly Actual`: 146515000","Period: 2015-10-01<br />`Monthly Actual`: 161124042","Period: 2015-11-01<br />`Monthly Actual`: 144519447","Period: 2015-12-01<br />`Monthly Actual`: 150834412","Period: 2016-01-01<br />`Monthly Actual`: 136413951","Period: 2016-02-01<br />`Monthly Actual`: 136690795","Period: 2016-03-01<br />`Monthly Actual`: 156297328","Period: 2016-04-01<br />`Monthly Actual`: 147291655","Period: 2016-05-01<br />`Monthly Actual`: 151910204","Period: 2016-06-01<br />`Monthly Actual`: 151007041","Period: 2016-07-01<br />`Monthly Actual`: 139851426","Period: 2016-08-01<br />`Monthly Actual`: 143703034","Period: 2016-09-01<br />`Monthly Actual`: 148467391","Period: 2016-10-01<br />`Monthly Actual`: 150638608","Period: 2016-11-01<br />`Monthly Actual`: 147033943","Period: 2016-12-01<br />`Monthly Actual`: 147509424","Period: 2017-01-01<br />`Monthly Actual`: 140288294","Period: 2017-02-01<br />`Monthly Actual`: 130465060","Period: 2017-03-01<br />`Monthly Actual`: 151384924","Period: 2017-04-01<br />`Monthly Actual`: 143284553","Period: 2017-05-01<br />`Monthly Actual`: 153470353","Period: 2017-06-01<br />`Monthly Actual`: 149360780","Period: 2017-07-01<br />`Monthly Actual`: 137447659","Period: 2017-08-01<br />`Monthly Actual`: 141721056","Period: 2017-09-01<br />`Monthly Actual`: 143012669","Period: 2017-10-01<br />`Monthly Actual`: 153344574","Period: 2017-11-01<br />`Monthly Actual`: 144357826","Period: 2017-12-01<br />`Monthly Actual`: 139097559"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(54,100,139,1)","opacity":0.7,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(54,100,139,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[16467,16480.0886075949,16493.1772151899,16506.2658227848,16519.3544303797,16532.4430379747,16545.5316455696,16558.6202531646,16571.7088607595,16584.7974683544,16597.8860759494,16610.9746835443,16624.0632911392,16637.1518987342,16650.2405063291,16663.3291139241,16676.417721519,16689.5063291139,16702.5949367089,16715.6835443038,16728.7721518987,16741.8607594937,16754.9493670886,16768.0379746835,16781.1265822785,16794.2151898734,16807.3037974684,16820.3924050633,16833.4810126582,16846.5696202532,16859.6582278481,16872.746835443,16885.835443038,16898.9240506329,16912.0126582278,16925.1012658228,16938.1898734177,16951.2784810127,16964.3670886076,16977.4556962025,16990.5443037975,17003.6329113924,17016.7215189873,17029.8101265823,17042.8987341772,17055.9873417722,17069.0759493671,17082.164556962,17095.253164557,17108.3417721519,17121.4303797468,17134.5189873418,17147.6075949367,17160.6962025316,17173.7848101266,17186.8734177215,17199.9620253165,17213.0506329114,17226.1392405063,17239.2278481013,17252.3164556962,17265.4050632911,17278.4936708861,17291.582278481,17304.6708860759,17317.7594936709,17330.8481012658,17343.9367088608,17357.0253164557,17370.1139240506,17383.2025316456,17396.2911392405,17409.3797468354,17422.4683544304,17435.5569620253,17448.6455696203,17461.7341772152,17474.8227848101,17487.9113924051,17501],"y":[147859120.382597,147813999.144111,147768877.905625,147723756.667138,147678635.428652,147633514.190166,147588392.951679,147543271.713193,147498150.474707,147453029.23622,147407907.997734,147362786.759248,147317665.520761,147272544.282275,147227423.043789,147182301.805303,147137180.566816,147092059.32833,147046938.089844,147001816.851357,146956695.612871,146911574.374385,146866453.135898,146821331.897412,146776210.658926,146731089.42044,146685968.181953,146640846.943467,146595725.704981,146550604.466494,146505483.228008,146460361.989522,146415240.751035,146370119.512549,146324998.274063,146279877.035577,146234755.79709,146189634.558604,146144513.320118,146099392.081631,146054270.843145,146009149.604659,145964028.366172,145918907.127686,145873785.8892,145828664.650713,145783543.412227,145738422.173741,145693300.935255,145648179.696768,145603058.458282,145557937.219796,145512815.981309,145467694.742823,145422573.504337,145377452.26585,145332331.027364,145287209.788878,145242088.550391,145196967.311905,145151846.073419,145106724.834933,145061603.596446,145016482.35796,144971361.119474,144926239.880987,144881118.642501,144835997.404015,144790876.165528,144745754.927042,144700633.688556,144655512.45007,144610391.211583,144565269.973097,144520148.734611,144475027.496124,144429906.257638,144384785.019152,144339663.780665,144294542.542179],"text":["Period: 16467.00<br />`Monthly Actual`: 147859120","Period: 16480.09<br />`Monthly Actual`: 147813999","Period: 16493.18<br />`Monthly Actual`: 147768878","Period: 16506.27<br />`Monthly Actual`: 147723757","Period: 16519.35<br />`Monthly Actual`: 147678635","Period: 16532.44<br />`Monthly Actual`: 147633514","Period: 16545.53<br />`Monthly Actual`: 147588393","Period: 16558.62<br />`Monthly Actual`: 147543272","Period: 16571.71<br />`Monthly Actual`: 147498150","Period: 16584.80<br />`Monthly Actual`: 147453029","Period: 16597.89<br />`Monthly Actual`: 147407908","Period: 16610.97<br />`Monthly Actual`: 147362787","Period: 16624.06<br />`Monthly Actual`: 147317666","Period: 16637.15<br />`Monthly Actual`: 147272544","Period: 16650.24<br />`Monthly Actual`: 147227423","Period: 16663.33<br />`Monthly Actual`: 147182302","Period: 16676.42<br />`Monthly Actual`: 147137181","Period: 16689.51<br />`Monthly Actual`: 147092059","Period: 16702.59<br />`Monthly Actual`: 147046938","Period: 16715.68<br />`Monthly Actual`: 147001817","Period: 16728.77<br />`Monthly Actual`: 146956696","Period: 16741.86<br />`Monthly Actual`: 146911574","Period: 16754.95<br />`Monthly Actual`: 146866453","Period: 16768.04<br />`Monthly Actual`: 146821332","Period: 16781.13<br />`Monthly Actual`: 146776211","Period: 16794.22<br />`Monthly Actual`: 146731089","Period: 16807.30<br />`Monthly Actual`: 146685968","Period: 16820.39<br />`Monthly Actual`: 146640847","Period: 16833.48<br />`Monthly Actual`: 146595726","Period: 16846.57<br />`Monthly Actual`: 146550604","Period: 16859.66<br />`Monthly Actual`: 146505483","Period: 16872.75<br />`Monthly Actual`: 146460362","Period: 16885.84<br />`Monthly Actual`: 146415241","Period: 16898.92<br />`Monthly Actual`: 146370120","Period: 16912.01<br />`Monthly Actual`: 146324998","Period: 16925.10<br />`Monthly Actual`: 146279877","Period: 16938.19<br />`Monthly Actual`: 146234756","Period: 16951.28<br />`Monthly Actual`: 146189635","Period: 16964.37<br />`Monthly Actual`: 146144513","Period: 16977.46<br />`Monthly Actual`: 146099392","Period: 16990.54<br />`Monthly Actual`: 146054271","Period: 17003.63<br />`Monthly Actual`: 146009150","Period: 17016.72<br />`Monthly Actual`: 145964028","Period: 17029.81<br />`Monthly Actual`: 145918907","Period: 17042.90<br />`Monthly Actual`: 145873786","Period: 17055.99<br />`Monthly Actual`: 145828665","Period: 17069.08<br />`Monthly Actual`: 145783543","Period: 17082.16<br />`Monthly Actual`: 145738422","Period: 17095.25<br />`Monthly Actual`: 145693301","Period: 17108.34<br />`Monthly Actual`: 145648180","Period: 17121.43<br />`Monthly Actual`: 145603058","Period: 17134.52<br />`Monthly Actual`: 145557937","Period: 17147.61<br />`Monthly Actual`: 145512816","Period: 17160.70<br />`Monthly Actual`: 145467695","Period: 17173.78<br />`Monthly Actual`: 145422574","Period: 17186.87<br />`Monthly Actual`: 145377452","Period: 17199.96<br />`Monthly Actual`: 145332331","Period: 17213.05<br />`Monthly Actual`: 145287210","Period: 17226.14<br />`Monthly Actual`: 145242089","Period: 17239.23<br />`Monthly Actual`: 145196967","Period: 17252.32<br />`Monthly Actual`: 145151846","Period: 17265.41<br />`Monthly Actual`: 145106725","Period: 17278.49<br />`Monthly Actual`: 145061604","Period: 17291.58<br />`Monthly Actual`: 145016482","Period: 17304.67<br />`Monthly Actual`: 144971361","Period: 17317.76<br />`Monthly Actual`: 144926240","Period: 17330.85<br />`Monthly Actual`: 144881119","Period: 17343.94<br />`Monthly Actual`: 144835997","Period: 17357.03<br />`Monthly Actual`: 144790876","Period: 17370.11<br />`Monthly Actual`: 144745755","Period: 17383.20<br />`Monthly Actual`: 144700634","Period: 17396.29<br />`Monthly Actual`: 144655512","Period: 17409.38<br />`Monthly Actual`: 144610391","Period: 17422.47<br />`Monthly Actual`: 144565270","Period: 17435.56<br />`Monthly Actual`: 144520149","Period: 17448.65<br />`Monthly Actual`: 144475027","Period: 17461.73<br />`Monthly Actual`: 144429906","Period: 17474.82<br />`Monthly Actual`: 144384785","Period: 17487.91<br />`Monthly Actual`: 144339664","Period: 17501.00<br />`Monthly Actual`: 144294543"],"type":"scatter","mode":"lines","name":"fitted values","line":{"width":3.77952755905512,"color":"rgba(51,102,255,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[16467,16480.0886075949,16493.1772151899,16506.2658227848,16519.3544303797,16532.4430379747,16545.5316455696,16558.6202531646,16571.7088607595,16584.7974683544,16597.8860759494,16610.9746835443,16624.0632911392,16637.1518987342,16650.2405063291,16663.3291139241,16676.417721519,16689.5063291139,16702.5949367089,16715.6835443038,16728.7721518987,16741.8607594937,16754.9493670886,16768.0379746835,16781.1265822785,16794.2151898734,16807.3037974684,16820.3924050633,16833.4810126582,16846.5696202532,16859.6582278481,16872.746835443,16885.835443038,16898.9240506329,16912.0126582278,16925.1012658228,16938.1898734177,16951.2784810127,16964.3670886076,16977.4556962025,16990.5443037975,17003.6329113924,17016.7215189873,17029.8101265823,17042.8987341772,17055.9873417722,17069.0759493671,17082.164556962,17095.253164557,17108.3417721519,17121.4303797468,17134.5189873418,17147.6075949367,17160.6962025316,17173.7848101266,17186.8734177215,17199.9620253165,17213.0506329114,17226.1392405063,17239.2278481013,17252.3164556962,17265.4050632911,17278.4936708861,17291.582278481,17304.6708860759,17317.7594936709,17330.8481012658,17343.9367088608,17357.0253164557,17370.1139240506,17383.2025316456,17396.2911392405,17409.3797468354,17422.4683544304,17435.5569620253,17448.6455696203,17461.7341772152,17474.8227848101,17487.9113924051,17501,17501,17501,17487.9113924051,17474.8227848101,17461.7341772152,17448.6455696203,17435.5569620253,17422.4683544304,17409.3797468354,17396.2911392405,17383.2025316456,17370.1139240506,17357.0253164557,17343.9367088608,17330.8481012658,17317.7594936709,17304.6708860759,17291.582278481,17278.4936708861,17265.4050632911,17252.3164556962,17239.2278481013,17226.1392405063,17213.0506329114,17199.9620253165,17186.8734177215,17173.7848101266,17160.6962025316,17147.6075949367,17134.5189873418,17121.4303797468,17108.3417721519,17095.253164557,17082.164556962,17069.0759493671,17055.9873417722,17042.8987341772,17029.8101265823,17016.7215189873,17003.6329113924,16990.5443037975,16977.4556962025,16964.3670886076,16951.2784810127,16938.1898734177,16925.1012658228,16912.0126582278,16898.9240506329,16885.835443038,16872.746835443,16859.6582278481,16846.5696202532,16833.4810126582,16820.3924050633,16807.3037974684,16794.2151898734,16781.1265822785,16768.0379746835,16754.9493670886,16741.8607594937,16728.7721518987,16715.6835443038,16702.5949367089,16689.5063291139,16676.417721519,16663.3291139241,16650.2405063291,16637.1518987342,16624.0632911392,16610.9746835443,16597.8860759494,16584.7974683544,16571.7088607595,16558.6202531646,16545.5316455696,16532.4430379747,16519.3544303797,16506.2658227848,16493.1772151899,16480.0886075949,16467,16467],"y":[143145247.998401,143188016.116183,143230164.271154,143271656.005917,143312452.255623,143352511.146008,143391787.777421,143430233.99467,143467798.142683,143504424.808404,143540054.549715,143574623.612787,143608063.639976,143640301.371275,143671258.343446,143700850.592334,143728988.365448,143755575.853844,143780510.954511,143803685.076989,143824983.010656,143844282.872034,143861456.154407,143876367.904759,143888877.055384,143898836.93891,143906096.015652,143910498.840441,143911887.291946,143910102.080256,143904984.53794,143896378.685514,143884133.544638,143868105.652037,143848161.705579,143824181.252987,143796059.315947,143763708.830449,143727062.78065,143686075.910076,143640725.911334,143591014.022703,143536964.994846,143478626.42969,143416067.532174,143349377.349738,143278662.6007,143204045.208882,143125659.667297,143043650.349132,142958168.871674,142869371.600574,142777417.360771,142682465.398857,142584673.621571,142484197.117824,142381186.957782,142275789.252297,142168144.449124,142058386.83848,141946644.238982,141833037.835286,141717682.140326,141600685.057385,141482148.020021,141362166.190807,141240828.702737,141118218.929855,140994414.776133,140869488.973797,140743509.384183,140616539.295776,140488637.715458,140359859.650026,140230256.375957,140099875.696112,139968762.182591,139836957.405404,139704500.146954,139571426.602563,139571426.602563,149017658.481795,148974827.414377,148932612.6329,148891050.332685,148850179.296136,148810041.093265,148770680.296168,148732144.707708,148694485.604363,148657757.992929,148622020.880287,148587337.554924,148553775.878175,148521408.582265,148490313.571168,148460574.218927,148432279.658535,148405525.052567,148380411.834579,148357047.907856,148335547.78533,148316032.651659,148298630.325459,148283475.096946,148270707.413877,148260473.387102,148252924.086789,148248214.601847,148246502.839017,148247948.04489,148252709.044405,148260942.203212,148272799.138599,148288424.223754,148307951.951689,148331504.246226,148359187.825683,148391091.737499,148427285.186614,148467815.774956,148512708.253186,148561963.859585,148615560.286759,148673452.278234,148735572.818166,148801834.842546,148872133.373061,148946347.957433,149024345.293529,149105981.918076,149191106.852732,149279564.118015,149371195.046492,149465840.348255,149563341.901969,149663544.262468,149766295.890066,149871450.11739,149978865.876735,150088408.215086,150199948.625725,150313365.225176,150428542.802816,150545372.768185,150663753.018271,150783587.744132,150904787.193275,151027267.401547,151150949.905709,151275761.445753,151401633.664037,151528502.80673,151656309.431716,151784998.125937,151914517.234324,152044818.60168,152175857.32836,152307591.540095,152439982.172039,152572992.766794,143145247.998401],"text":["Period: 16467.00<br />`Monthly Actual`: 147859120","Period: 16480.09<br />`Monthly Actual`: 147813999","Period: 16493.18<br />`Monthly Actual`: 147768878","Period: 16506.27<br />`Monthly Actual`: 147723757","Period: 16519.35<br />`Monthly Actual`: 147678635","Period: 16532.44<br />`Monthly Actual`: 147633514","Period: 16545.53<br />`Monthly Actual`: 147588393","Period: 16558.62<br />`Monthly Actual`: 147543272","Period: 16571.71<br />`Monthly Actual`: 147498150","Period: 16584.80<br />`Monthly Actual`: 147453029","Period: 16597.89<br />`Monthly Actual`: 147407908","Period: 16610.97<br />`Monthly Actual`: 147362787","Period: 16624.06<br />`Monthly Actual`: 147317666","Period: 16637.15<br />`Monthly Actual`: 147272544","Period: 16650.24<br />`Monthly Actual`: 147227423","Period: 16663.33<br />`Monthly Actual`: 147182302","Period: 16676.42<br />`Monthly Actual`: 147137181","Period: 16689.51<br />`Monthly Actual`: 147092059","Period: 16702.59<br />`Monthly Actual`: 147046938","Period: 16715.68<br />`Monthly Actual`: 147001817","Period: 16728.77<br />`Monthly Actual`: 146956696","Period: 16741.86<br />`Monthly Actual`: 146911574","Period: 16754.95<br />`Monthly Actual`: 146866453","Period: 16768.04<br />`Monthly Actual`: 146821332","Period: 16781.13<br />`Monthly Actual`: 146776211","Period: 16794.22<br />`Monthly Actual`: 146731089","Period: 16807.30<br />`Monthly Actual`: 146685968","Period: 16820.39<br />`Monthly Actual`: 146640847","Period: 16833.48<br />`Monthly Actual`: 146595726","Period: 16846.57<br />`Monthly Actual`: 146550604","Period: 16859.66<br />`Monthly Actual`: 146505483","Period: 16872.75<br />`Monthly Actual`: 146460362","Period: 16885.84<br />`Monthly Actual`: 146415241","Period: 16898.92<br />`Monthly Actual`: 146370120","Period: 16912.01<br />`Monthly Actual`: 146324998","Period: 16925.10<br />`Monthly Actual`: 146279877","Period: 16938.19<br />`Monthly Actual`: 146234756","Period: 16951.28<br />`Monthly Actual`: 146189635","Period: 16964.37<br />`Monthly Actual`: 146144513","Period: 16977.46<br />`Monthly Actual`: 146099392","Period: 16990.54<br />`Monthly Actual`: 146054271","Period: 17003.63<br />`Monthly Actual`: 146009150","Period: 17016.72<br />`Monthly Actual`: 145964028","Period: 17029.81<br />`Monthly Actual`: 145918907","Period: 17042.90<br />`Monthly Actual`: 145873786","Period: 17055.99<br />`Monthly Actual`: 145828665","Period: 17069.08<br />`Monthly Actual`: 145783543","Period: 17082.16<br />`Monthly Actual`: 145738422","Period: 17095.25<br />`Monthly Actual`: 145693301","Period: 17108.34<br />`Monthly Actual`: 145648180","Period: 17121.43<br />`Monthly Actual`: 145603058","Period: 17134.52<br />`Monthly Actual`: 145557937","Period: 17147.61<br />`Monthly Actual`: 145512816","Period: 17160.70<br />`Monthly Actual`: 145467695","Period: 17173.78<br />`Monthly Actual`: 145422574","Period: 17186.87<br />`Monthly Actual`: 145377452","Period: 17199.96<br />`Monthly Actual`: 145332331","Period: 17213.05<br />`Monthly Actual`: 145287210","Period: 17226.14<br />`Monthly Actual`: 145242089","Period: 17239.23<br />`Monthly Actual`: 145196967","Period: 17252.32<br />`Monthly Actual`: 145151846","Period: 17265.41<br />`Monthly Actual`: 145106725","Period: 17278.49<br />`Monthly Actual`: 145061604","Period: 17291.58<br />`Monthly Actual`: 145016482","Period: 17304.67<br />`Monthly Actual`: 144971361","Period: 17317.76<br />`Monthly Actual`: 144926240","Period: 17330.85<br />`Monthly Actual`: 144881119","Period: 17343.94<br />`Monthly Actual`: 144835997","Period: 17357.03<br />`Monthly Actual`: 144790876","Period: 17370.11<br />`Monthly Actual`: 144745755","Period: 17383.20<br />`Monthly Actual`: 144700634","Period: 17396.29<br />`Monthly Actual`: 144655512","Period: 17409.38<br />`Monthly Actual`: 144610391","Period: 17422.47<br />`Monthly Actual`: 144565270","Period: 17435.56<br />`Monthly Actual`: 144520149","Period: 17448.65<br />`Monthly Actual`: 144475027","Period: 17461.73<br />`Monthly Actual`: 144429906","Period: 17474.82<br />`Monthly Actual`: 144384785","Period: 17487.91<br />`Monthly Actual`: 144339664","Period: 17501.00<br />`Monthly Actual`: 144294543","Period: 17501.00<br />`Monthly Actual`: 144294543","Period: 17501.00<br />`Monthly Actual`: 144294543","Period: 17487.91<br />`Monthly Actual`: 144339664","Period: 17474.82<br />`Monthly Actual`: 144384785","Period: 17461.73<br />`Monthly Actual`: 144429906","Period: 17448.65<br />`Monthly Actual`: 144475027","Period: 17435.56<br />`Monthly Actual`: 144520149","Period: 17422.47<br />`Monthly Actual`: 144565270","Period: 17409.38<br />`Monthly Actual`: 144610391","Period: 17396.29<br />`Monthly Actual`: 144655512","Period: 17383.20<br />`Monthly Actual`: 144700634","Period: 17370.11<br />`Monthly Actual`: 144745755","Period: 17357.03<br />`Monthly Actual`: 144790876","Period: 17343.94<br />`Monthly Actual`: 144835997","Period: 17330.85<br />`Monthly Actual`: 144881119","Period: 17317.76<br />`Monthly Actual`: 144926240","Period: 17304.67<br />`Monthly Actual`: 144971361","Period: 17291.58<br />`Monthly Actual`: 145016482","Period: 17278.49<br />`Monthly Actual`: 145061604","Period: 17265.41<br />`Monthly Actual`: 145106725","Period: 17252.32<br />`Monthly Actual`: 145151846","Period: 17239.23<br />`Monthly Actual`: 145196967","Period: 17226.14<br />`Monthly Actual`: 145242089","Period: 17213.05<br />`Monthly Actual`: 145287210","Period: 17199.96<br />`Monthly Actual`: 145332331","Period: 17186.87<br />`Monthly Actual`: 145377452","Period: 17173.78<br />`Monthly Actual`: 145422574","Period: 17160.70<br />`Monthly Actual`: 145467695","Period: 17147.61<br />`Monthly Actual`: 145512816","Period: 17134.52<br />`Monthly Actual`: 145557937","Period: 17121.43<br />`Monthly Actual`: 145603058","Period: 17108.34<br />`Monthly Actual`: 145648180","Period: 17095.25<br />`Monthly Actual`: 145693301","Period: 17082.16<br />`Monthly Actual`: 145738422","Period: 17069.08<br />`Monthly Actual`: 145783543","Period: 17055.99<br />`Monthly Actual`: 145828665","Period: 17042.90<br />`Monthly Actual`: 145873786","Period: 17029.81<br />`Monthly Actual`: 145918907","Period: 17016.72<br />`Monthly Actual`: 145964028","Period: 17003.63<br />`Monthly Actual`: 146009150","Period: 16990.54<br />`Monthly Actual`: 146054271","Period: 16977.46<br />`Monthly Actual`: 146099392","Period: 16964.37<br />`Monthly Actual`: 146144513","Period: 16951.28<br />`Monthly Actual`: 146189635","Period: 16938.19<br />`Monthly Actual`: 146234756","Period: 16925.10<br />`Monthly Actual`: 146279877","Period: 16912.01<br />`Monthly Actual`: 146324998","Period: 16898.92<br />`Monthly Actual`: 146370120","Period: 16885.84<br />`Monthly Actual`: 146415241","Period: 16872.75<br />`Monthly Actual`: 146460362","Period: 16859.66<br />`Monthly Actual`: 146505483","Period: 16846.57<br />`Monthly Actual`: 146550604","Period: 16833.48<br />`Monthly Actual`: 146595726","Period: 16820.39<br />`Monthly Actual`: 146640847","Period: 16807.30<br />`Monthly Actual`: 146685968","Period: 16794.22<br />`Monthly Actual`: 146731089","Period: 16781.13<br />`Monthly Actual`: 146776211","Period: 16768.04<br />`Monthly Actual`: 146821332","Period: 16754.95<br />`Monthly Actual`: 146866453","Period: 16741.86<br />`Monthly Actual`: 146911574","Period: 16728.77<br />`Monthly Actual`: 146956696","Period: 16715.68<br />`Monthly Actual`: 147001817","Period: 16702.59<br />`Monthly Actual`: 147046938","Period: 16689.51<br />`Monthly Actual`: 147092059","Period: 16676.42<br />`Monthly Actual`: 147137181","Period: 16663.33<br />`Monthly Actual`: 147182302","Period: 16650.24<br />`Monthly Actual`: 147227423","Period: 16637.15<br />`Monthly Actual`: 147272544","Period: 16624.06<br />`Monthly Actual`: 147317666","Period: 16610.97<br />`Monthly Actual`: 147362787","Period: 16597.89<br />`Monthly Actual`: 147407908","Period: 16584.80<br />`Monthly Actual`: 147453029","Period: 16571.71<br />`Monthly Actual`: 147498150","Period: 16558.62<br />`Monthly Actual`: 147543272","Period: 16545.53<br />`Monthly Actual`: 147588393","Period: 16532.44<br />`Monthly Actual`: 147633514","Period: 16519.35<br />`Monthly Actual`: 147678635","Period: 16506.27<br />`Monthly Actual`: 147723757","Period: 16493.18<br />`Monthly Actual`: 147768878","Period: 16480.09<br />`Monthly Actual`: 147813999","Period: 16467.00<br />`Monthly Actual`: 147859120","Period: 16467.00<br />`Monthly Actual`: 147859120"],"type":"scatter","mode":"lines","line":{"width":3.77952755905512,"color":"transparent","dash":"solid"},"fill":"toself","fillcolor":"rgba(153,153,153,0.4)","hoveron":"points","hoverinfo":"x+y","showlegend":false,"xaxis":"x","yaxis":"y","frame":null}],"layout":{"margin":{"t":27.8721461187215,"r":7.30593607305936,"b":41.8264840182648,"l":89.8630136986302},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[16415.3,17552.7],"tickmode":"array","ticktext":["2015","2016","2017","2018"],"tickvals":[16436,16801,17167,17532],"categoryorder":"array","categoryarray":["2015","2016","2017","2018"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":{"text":"Period","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[128932110.9,162656991.1],"tickmode":"array","ticktext":["130,000,000","140,000,000","150,000,000","160,000,000"],"tickvals":[130000000,140000000,150000000,160000000],"categoryorder":"array","categoryarray":["130,000,000","140,000,000","150,000,000","160,000,000"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"x","title":{"text":"Total Monthly Ridership - All Lines","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895}},"hovermode":"closest","barmode":"relative","title":{"text":"There is no clear trend of monthly ridership","font":{"size":15}}},"config":{"doubleClick":"reset","showSendToCloud":false,"displayModeBar":false,"scrollZoom":false},"source":"A","attrs":{"2a64b4860a9":{"x":{},"y":{},"type":"scatter"},"2a6442e26ac7":{"x":{},"y":{}}},"cur_data":"2a64b4860a9","visdat":{"2a64b4860a9":["function (y) ","x"],"2a6442e26ac7":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+<blockquote>
+<p>“Terminal On-Time Performance measures the percentage of trains arriving at their destination terminals as scheduled. A train is counted as on-time if it arrives at its destination early, on time, or no more than five minutes late, and has not skipped any planned stops. TOTP is a legacy metric that provides a measure of trains arriving within the standard, and not a direct measure of customer travel time, particularly since relatively few customers travel all the way to the end of a line.” — MTA</p>
+</blockquote>
+<div class="layout-chunk" data-layout="l-body">
+<div id="htmlwidget-1f8a43dd00efeda0d14c" style="width:100%;height:384px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1f8a43dd00efeda0d14c">{"x":{"data":[{"x":[16467,16495,16526,16556,16587,16617,16648,16679,16709,16740,16770,16801,16832,16861,16892,16922,16953,16983,17014,17045,17075,17106,17136,17167,17198,17226,17257,17287,17318,17348,17379,17410,17440,17471,17501],"y":[66.3,69.5,71.4,69.9,69.9,69.4,71.8,69.9,67.5,67.5,69.5,67.9,67.8,68.1,69.1,68.8,67.5,66.5,69,65.9,64.6,63.94,62.54,64.09,62.4,63,63.38,61.67,61.78,65.63,65.18,64.57,64.36,62.3,62.86],"text":["Period: 2015-02-01<br />`Monthly Actual`: 66.30","Period: 2015-03-01<br />`Monthly Actual`: 69.50","Period: 2015-04-01<br />`Monthly Actual`: 71.40","Period: 2015-05-01<br />`Monthly Actual`: 69.90","Period: 2015-06-01<br />`Monthly Actual`: 69.90","Period: 2015-07-01<br />`Monthly Actual`: 69.40","Period: 2015-08-01<br />`Monthly Actual`: 71.80","Period: 2015-09-01<br />`Monthly Actual`: 69.90","Period: 2015-10-01<br />`Monthly Actual`: 67.50","Period: 2015-11-01<br />`Monthly Actual`: 67.50","Period: 2015-12-01<br />`Monthly Actual`: 69.50","Period: 2016-01-01<br />`Monthly Actual`: 67.90","Period: 2016-02-01<br />`Monthly Actual`: 67.80","Period: 2016-03-01<br />`Monthly Actual`: 68.10","Period: 2016-04-01<br />`Monthly Actual`: 69.10","Period: 2016-05-01<br />`Monthly Actual`: 68.80","Period: 2016-06-01<br />`Monthly Actual`: 67.50","Period: 2016-07-01<br />`Monthly Actual`: 66.50","Period: 2016-08-01<br />`Monthly Actual`: 69.00","Period: 2016-09-01<br />`Monthly Actual`: 65.90","Period: 2016-10-01<br />`Monthly Actual`: 64.60","Period: 2016-11-01<br />`Monthly Actual`: 63.94","Period: 2016-12-01<br />`Monthly Actual`: 62.54","Period: 2017-01-01<br />`Monthly Actual`: 64.09","Period: 2017-02-01<br />`Monthly Actual`: 62.40","Period: 2017-03-01<br />`Monthly Actual`: 63.00","Period: 2017-04-01<br />`Monthly Actual`: 63.38","Period: 2017-05-01<br />`Monthly Actual`: 61.67","Period: 2017-06-01<br />`Monthly Actual`: 61.78","Period: 2017-07-01<br />`Monthly Actual`: 65.63","Period: 2017-08-01<br />`Monthly Actual`: 65.18","Period: 2017-09-01<br />`Monthly Actual`: 64.57","Period: 2017-10-01<br />`Monthly Actual`: 64.36","Period: 2017-11-01<br />`Monthly Actual`: 62.30","Period: 2017-12-01<br />`Monthly Actual`: 62.86"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(54,100,139,1)","opacity":0.7,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(54,100,139,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[16467,16480.0886075949,16493.1772151899,16506.2658227848,16519.3544303797,16532.4430379747,16545.5316455696,16558.6202531646,16571.7088607595,16584.7974683544,16597.8860759494,16610.9746835443,16624.0632911392,16637.1518987342,16650.2405063291,16663.3291139241,16676.417721519,16689.5063291139,16702.5949367089,16715.6835443038,16728.7721518987,16741.8607594937,16754.9493670886,16768.0379746835,16781.1265822785,16794.2151898734,16807.3037974684,16820.3924050633,16833.4810126582,16846.5696202532,16859.6582278481,16872.746835443,16885.835443038,16898.9240506329,16912.0126582278,16925.1012658228,16938.1898734177,16951.2784810127,16964.3670886076,16977.4556962025,16990.5443037975,17003.6329113924,17016.7215189873,17029.8101265823,17042.8987341772,17055.9873417722,17069.0759493671,17082.164556962,17095.253164557,17108.3417721519,17121.4303797468,17134.5189873418,17147.6075949367,17160.6962025316,17173.7848101266,17186.8734177215,17199.9620253165,17213.0506329114,17226.1392405063,17239.2278481013,17252.3164556962,17265.4050632911,17278.4936708861,17291.582278481,17304.6708860759,17317.7594936709,17330.8481012658,17343.9367088608,17357.0253164557,17370.1139240506,17383.2025316456,17396.2911392405,17409.3797468354,17422.4683544304,17435.5569620253,17448.6455696203,17461.7341772152,17474.8227848101,17487.9113924051,17501],"y":[70.5250032976916,70.4215205728394,70.3180378479873,70.2145551231351,70.111072398283,70.0075896734308,69.9041069485787,69.8006242237265,69.6971414988744,69.5936587740222,69.4901760491701,69.3866933243179,69.2832105994657,69.1797278746136,69.0762451497614,68.9727624249093,68.8692797000571,68.765796975205,68.6623142503528,68.5588315255007,68.4553488006485,68.3518660757964,68.2483833509442,68.144900626092,68.0414179012399,67.9379351763877,67.8344524515356,67.7309697266834,67.6274870018313,67.5240042769791,67.420521552127,67.3170388272748,67.2135561024226,67.1100733775705,67.0065906527183,66.9031079278662,66.799625203014,66.6961424781618,66.5926597533097,66.4891770284576,66.3856943036054,66.2822115787532,66.1787288539011,66.0752461290489,65.9717634041968,65.8682806793446,65.7647979544925,65.6613152296403,65.5578325047881,65.454349779936,65.3508670550839,65.2473843302317,65.1439016053795,65.0404188805274,64.9369361556752,64.8334534308231,64.7299707059709,64.6264879811187,64.5230052562666,64.4195225314144,64.3160398065623,64.2125570817101,64.109074356858,64.0055916320058,63.9021089071537,63.7986261823015,63.6951434574493,63.5916607325972,63.488178007745,63.3846952828929,63.2812125580407,63.1777298331886,63.0742471083364,62.9707643834843,62.8672816586321,62.76379893378,62.6603162089278,62.5568334840756,62.4533507592235,62.3498680343713],"text":["Period: 16467.00<br />`Monthly Actual`: 70.52500","Period: 16480.09<br />`Monthly Actual`: 70.42152","Period: 16493.18<br />`Monthly Actual`: 70.31804","Period: 16506.27<br />`Monthly Actual`: 70.21456","Period: 16519.35<br />`Monthly Actual`: 70.11107","Period: 16532.44<br />`Monthly Actual`: 70.00759","Period: 16545.53<br />`Monthly Actual`: 69.90411","Period: 16558.62<br />`Monthly Actual`: 69.80062","Period: 16571.71<br />`Monthly Actual`: 69.69714","Period: 16584.80<br />`Monthly Actual`: 69.59366","Period: 16597.89<br />`Monthly Actual`: 69.49018","Period: 16610.97<br />`Monthly Actual`: 69.38669","Period: 16624.06<br />`Monthly Actual`: 69.28321","Period: 16637.15<br />`Monthly Actual`: 69.17973","Period: 16650.24<br />`Monthly Actual`: 69.07625","Period: 16663.33<br />`Monthly Actual`: 68.97276","Period: 16676.42<br />`Monthly Actual`: 68.86928","Period: 16689.51<br />`Monthly Actual`: 68.76580","Period: 16702.59<br />`Monthly Actual`: 68.66231","Period: 16715.68<br />`Monthly Actual`: 68.55883","Period: 16728.77<br />`Monthly Actual`: 68.45535","Period: 16741.86<br />`Monthly Actual`: 68.35187","Period: 16754.95<br />`Monthly Actual`: 68.24838","Period: 16768.04<br />`Monthly Actual`: 68.14490","Period: 16781.13<br />`Monthly Actual`: 68.04142","Period: 16794.22<br />`Monthly Actual`: 67.93794","Period: 16807.30<br />`Monthly Actual`: 67.83445","Period: 16820.39<br />`Monthly Actual`: 67.73097","Period: 16833.48<br />`Monthly Actual`: 67.62749","Period: 16846.57<br />`Monthly Actual`: 67.52400","Period: 16859.66<br />`Monthly Actual`: 67.42052","Period: 16872.75<br />`Monthly Actual`: 67.31704","Period: 16885.84<br />`Monthly Actual`: 67.21356","Period: 16898.92<br />`Monthly Actual`: 67.11007","Period: 16912.01<br />`Monthly Actual`: 67.00659","Period: 16925.10<br />`Monthly Actual`: 66.90311","Period: 16938.19<br />`Monthly Actual`: 66.79963","Period: 16951.28<br />`Monthly Actual`: 66.69614","Period: 16964.37<br />`Monthly Actual`: 66.59266","Period: 16977.46<br />`Monthly Actual`: 66.48918","Period: 16990.54<br />`Monthly Actual`: 66.38569","Period: 17003.63<br />`Monthly Actual`: 66.28221","Period: 17016.72<br />`Monthly Actual`: 66.17873","Period: 17029.81<br />`Monthly Actual`: 66.07525","Period: 17042.90<br />`Monthly Actual`: 65.97176","Period: 17055.99<br />`Monthly Actual`: 65.86828","Period: 17069.08<br />`Monthly Actual`: 65.76480","Period: 17082.16<br />`Monthly Actual`: 65.66132","Period: 17095.25<br />`Monthly Actual`: 65.55783","Period: 17108.34<br />`Monthly Actual`: 65.45435","Period: 17121.43<br />`Monthly Actual`: 65.35087","Period: 17134.52<br />`Monthly Actual`: 65.24738","Period: 17147.61<br />`Monthly Actual`: 65.14390","Period: 17160.70<br />`Monthly Actual`: 65.04042","Period: 17173.78<br />`Monthly Actual`: 64.93694","Period: 17186.87<br />`Monthly Actual`: 64.83345","Period: 17199.96<br />`Monthly Actual`: 64.72997","Period: 17213.05<br />`Monthly Actual`: 64.62649","Period: 17226.14<br />`Monthly Actual`: 64.52301","Period: 17239.23<br />`Monthly Actual`: 64.41952","Period: 17252.32<br />`Monthly Actual`: 64.31604","Period: 17265.41<br />`Monthly Actual`: 64.21256","Period: 17278.49<br />`Monthly Actual`: 64.10907","Period: 17291.58<br />`Monthly Actual`: 64.00559","Period: 17304.67<br />`Monthly Actual`: 63.90211","Period: 17317.76<br />`Monthly Actual`: 63.79863","Period: 17330.85<br />`Monthly Actual`: 63.69514","Period: 17343.94<br />`Monthly Actual`: 63.59166","Period: 17357.03<br />`Monthly Actual`: 63.48818","Period: 17370.11<br />`Monthly Actual`: 63.38470","Period: 17383.20<br />`Monthly Actual`: 63.28121","Period: 17396.29<br />`Monthly Actual`: 63.17773","Period: 17409.38<br />`Monthly Actual`: 63.07425","Period: 17422.47<br />`Monthly Actual`: 62.97076","Period: 17435.56<br />`Monthly Actual`: 62.86728","Period: 17448.65<br />`Monthly Actual`: 62.76380","Period: 17461.73<br />`Monthly Actual`: 62.66032","Period: 17474.82<br />`Monthly Actual`: 62.55683","Period: 17487.91<br />`Monthly Actual`: 62.45335","Period: 17501.00<br />`Monthly Actual`: 62.34987"],"type":"scatter","mode":"lines","name":"fitted values","line":{"width":3.77952755905512,"color":"rgba(51,102,255,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[16467,16480.0886075949,16493.1772151899,16506.2658227848,16519.3544303797,16532.4430379747,16545.5316455696,16558.6202531646,16571.7088607595,16584.7974683544,16597.8860759494,16610.9746835443,16624.0632911392,16637.1518987342,16650.2405063291,16663.3291139241,16676.417721519,16689.5063291139,16702.5949367089,16715.6835443038,16728.7721518987,16741.8607594937,16754.9493670886,16768.0379746835,16781.1265822785,16794.2151898734,16807.3037974684,16820.3924050633,16833.4810126582,16846.5696202532,16859.6582278481,16872.746835443,16885.835443038,16898.9240506329,16912.0126582278,16925.1012658228,16938.1898734177,16951.2784810127,16964.3670886076,16977.4556962025,16990.5443037975,17003.6329113924,17016.7215189873,17029.8101265823,17042.8987341772,17055.9873417722,17069.0759493671,17082.164556962,17095.253164557,17108.3417721519,17121.4303797468,17134.5189873418,17147.6075949367,17160.6962025316,17173.7848101266,17186.8734177215,17199.9620253165,17213.0506329114,17226.1392405063,17239.2278481013,17252.3164556962,17265.4050632911,17278.4936708861,17291.582278481,17304.6708860759,17317.7594936709,17330.8481012658,17343.9367088608,17357.0253164557,17370.1139240506,17383.2025316456,17396.2911392405,17409.3797468354,17422.4683544304,17435.5569620253,17448.6455696203,17461.7341772152,17474.8227848101,17487.9113924051,17501,17501,17501,17487.9113924051,17474.8227848101,17461.7341772152,17448.6455696203,17435.5569620253,17422.4683544304,17409.3797468354,17396.2911392405,17383.2025316456,17370.1139240506,17357.0253164557,17343.9367088608,17330.8481012658,17317.7594936709,17304.6708860759,17291.582278481,17278.4936708861,17265.4050632911,17252.3164556962,17239.2278481013,17226.1392405063,17213.0506329114,17199.9620253165,17186.8734177215,17173.7848101266,17160.6962025316,17147.6075949367,17134.5189873418,17121.4303797468,17108.3417721519,17095.253164557,17082.164556962,17069.0759493671,17055.9873417722,17042.8987341772,17029.8101265823,17016.7215189873,17003.6329113924,16990.5443037975,16977.4556962025,16964.3670886076,16951.2784810127,16938.1898734177,16925.1012658228,16912.0126582278,16898.9240506329,16885.835443038,16872.746835443,16859.6582278481,16846.5696202532,16833.4810126582,16820.3924050633,16807.3037974684,16794.2151898734,16781.1265822785,16768.0379746835,16754.9493670886,16741.8607594937,16728.7721518987,16715.6835443038,16702.5949367089,16689.5063291139,16676.417721519,16663.3291139241,16650.2405063291,16637.1518987342,16624.0632911392,16610.9746835443,16597.8860759494,16584.7974683544,16571.7088607595,16558.6202531646,16545.5316455696,16532.4430379747,16519.3544303797,16506.2658227848,16493.1772151899,16480.0886075949,16467,16467],"y":[69.4052532169126,69.3226480436275,69.239895602162,69.1569872322961,69.0739136544262,68.9906649215894,68.9072303681631,68.8235985551904,68.7397572123414,68.6556931766008,68.5713923278753,68.4868395218529,68.402018520615,68.3169119217174,68.2315010867227,68.1457660704854,68.0596855528785,67.9732367751031,67.8863954832454,67.7991358823398,67.7114306048434,67.62325069812,67.5345656362248,67.4453433619368,67.3555503655295,67.2651518071113,67.174111689404,67.0823930874075,66.9899584404158,66.8967699101346,66.8027898061358,66.7079810764958,66.6123078572801,66.5157360697106,66.4182340487225,66.3197731816517,66.2203285315745,66.1198794169954,66.0184099187314,65.9159092863983,65.812372221018,65.7077990167359,65.6021955529128,65.4955731370804,65.3879482084273,65.2793419196004,65.1697796208496,65.0592902743957,64.9479058281886,64.8356605771513,64.7225905369955,64.6087328513762,64.4941252481368,64.3788055552813,64.2628112825406,64.1461792702883,64.0289454042714,63.9111443921831,63.7928095964849,63.6739729169549,63.5546647160833,63.4349137805064,63.3147473120354,63.1941909424016,63.0732687664944,62.9520033895713,62.8304159846022,62.7085263565552,62.5863530110179,62.4639132250633,62.3412231187149,62.2182977257461,62.0951510628622,61.9717961965739,61.848245307279,61.7245097502399,61.600600113272,61.4765262710641,61.3522974361271,61.2279222064265,61.2279222064265,63.4718138623162,63.5544040823199,63.6371406970871,63.7200323045836,63.8030881173201,63.8863180099853,63.9697325703947,64.0533431538106,64.137161940631,64.2212019973666,64.3054773407225,64.3900030044722,64.4747951086392,64.5598709302965,64.6452489750317,64.730949047813,64.8169923216101,64.9034014016805,64.9902003829139,65.0774148970412,65.165072145874,65.2532009160482,65.3418315700544,65.4309960076705,65.5207275913578,65.6110610288099,65.7020322057734,65.7936779626222,65.8860358090872,65.9791435731722,66.0730389827207,66.1677591813876,66.2633401848849,66.3598162881353,66.4572194390888,66.5555785999662,66.6549191210175,66.7552621548893,66.8566241407705,66.9590163861928,67.0624447705168,67.166909587888,67.2724055393283,67.3789218744535,67.4864426740806,67.5949472567141,67.7044106854303,67.8148043475652,67.9260965780538,68.0382532981181,68.1512386438236,68.2650155632467,68.3795463659593,68.4947932136672,68.6107185456641,68.7272854369503,68.8444578902472,68.9622010656636,69.0804814534727,69.1992669964536,69.3185271686615,69.4382330174602,69.5583571753069,69.6788738472357,69.7997587793332,69.9209892128001,70.0425438275097,70.1644026783165,70.2865471267829,70.4089597704649,70.5316243714436,70.6545257854073,70.7776498922627,70.9009835289942,71.0245144252722,71.1482311421398,71.2721230139742,71.3961800938125,71.5203931020514,71.6447533784706,69.4052532169126],"text":["Period: 16467.00<br />`Monthly Actual`: 70.52500","Period: 16480.09<br />`Monthly Actual`: 70.42152","Period: 16493.18<br />`Monthly Actual`: 70.31804","Period: 16506.27<br />`Monthly Actual`: 70.21456","Period: 16519.35<br />`Monthly Actual`: 70.11107","Period: 16532.44<br />`Monthly Actual`: 70.00759","Period: 16545.53<br />`Monthly Actual`: 69.90411","Period: 16558.62<br />`Monthly Actual`: 69.80062","Period: 16571.71<br />`Monthly Actual`: 69.69714","Period: 16584.80<br />`Monthly Actual`: 69.59366","Period: 16597.89<br />`Monthly Actual`: 69.49018","Period: 16610.97<br />`Monthly Actual`: 69.38669","Period: 16624.06<br />`Monthly Actual`: 69.28321","Period: 16637.15<br />`Monthly Actual`: 69.17973","Period: 16650.24<br />`Monthly Actual`: 69.07625","Period: 16663.33<br />`Monthly Actual`: 68.97276","Period: 16676.42<br />`Monthly Actual`: 68.86928","Period: 16689.51<br />`Monthly Actual`: 68.76580","Period: 16702.59<br />`Monthly Actual`: 68.66231","Period: 16715.68<br />`Monthly Actual`: 68.55883","Period: 16728.77<br />`Monthly Actual`: 68.45535","Period: 16741.86<br />`Monthly Actual`: 68.35187","Period: 16754.95<br />`Monthly Actual`: 68.24838","Period: 16768.04<br />`Monthly Actual`: 68.14490","Period: 16781.13<br />`Monthly Actual`: 68.04142","Period: 16794.22<br />`Monthly Actual`: 67.93794","Period: 16807.30<br />`Monthly Actual`: 67.83445","Period: 16820.39<br />`Monthly Actual`: 67.73097","Period: 16833.48<br />`Monthly Actual`: 67.62749","Period: 16846.57<br />`Monthly Actual`: 67.52400","Period: 16859.66<br />`Monthly Actual`: 67.42052","Period: 16872.75<br />`Monthly Actual`: 67.31704","Period: 16885.84<br />`Monthly Actual`: 67.21356","Period: 16898.92<br />`Monthly Actual`: 67.11007","Period: 16912.01<br />`Monthly Actual`: 67.00659","Period: 16925.10<br />`Monthly Actual`: 66.90311","Period: 16938.19<br />`Monthly Actual`: 66.79963","Period: 16951.28<br />`Monthly Actual`: 66.69614","Period: 16964.37<br />`Monthly Actual`: 66.59266","Period: 16977.46<br />`Monthly Actual`: 66.48918","Period: 16990.54<br />`Monthly Actual`: 66.38569","Period: 17003.63<br />`Monthly Actual`: 66.28221","Period: 17016.72<br />`Monthly Actual`: 66.17873","Period: 17029.81<br />`Monthly Actual`: 66.07525","Period: 17042.90<br />`Monthly Actual`: 65.97176","Period: 17055.99<br />`Monthly Actual`: 65.86828","Period: 17069.08<br />`Monthly Actual`: 65.76480","Period: 17082.16<br />`Monthly Actual`: 65.66132","Period: 17095.25<br />`Monthly Actual`: 65.55783","Period: 17108.34<br />`Monthly Actual`: 65.45435","Period: 17121.43<br />`Monthly Actual`: 65.35087","Period: 17134.52<br />`Monthly Actual`: 65.24738","Period: 17147.61<br />`Monthly Actual`: 65.14390","Period: 17160.70<br />`Monthly Actual`: 65.04042","Period: 17173.78<br />`Monthly Actual`: 64.93694","Period: 17186.87<br />`Monthly Actual`: 64.83345","Period: 17199.96<br />`Monthly Actual`: 64.72997","Period: 17213.05<br />`Monthly Actual`: 64.62649","Period: 17226.14<br />`Monthly Actual`: 64.52301","Period: 17239.23<br />`Monthly Actual`: 64.41952","Period: 17252.32<br />`Monthly Actual`: 64.31604","Period: 17265.41<br />`Monthly Actual`: 64.21256","Period: 17278.49<br />`Monthly Actual`: 64.10907","Period: 17291.58<br />`Monthly Actual`: 64.00559","Period: 17304.67<br />`Monthly Actual`: 63.90211","Period: 17317.76<br />`Monthly Actual`: 63.79863","Period: 17330.85<br />`Monthly Actual`: 63.69514","Period: 17343.94<br />`Monthly Actual`: 63.59166","Period: 17357.03<br />`Monthly Actual`: 63.48818","Period: 17370.11<br />`Monthly Actual`: 63.38470","Period: 17383.20<br />`Monthly Actual`: 63.28121","Period: 17396.29<br />`Monthly Actual`: 63.17773","Period: 17409.38<br />`Monthly Actual`: 63.07425","Period: 17422.47<br />`Monthly Actual`: 62.97076","Period: 17435.56<br />`Monthly Actual`: 62.86728","Period: 17448.65<br />`Monthly Actual`: 62.76380","Period: 17461.73<br />`Monthly Actual`: 62.66032","Period: 17474.82<br />`Monthly Actual`: 62.55683","Period: 17487.91<br />`Monthly Actual`: 62.45335","Period: 17501.00<br />`Monthly Actual`: 62.34987","Period: 17501.00<br />`Monthly Actual`: 62.34987","Period: 17501.00<br />`Monthly Actual`: 62.34987","Period: 17487.91<br />`Monthly Actual`: 62.45335","Period: 17474.82<br />`Monthly Actual`: 62.55683","Period: 17461.73<br />`Monthly Actual`: 62.66032","Period: 17448.65<br />`Monthly Actual`: 62.76380","Period: 17435.56<br />`Monthly Actual`: 62.86728","Period: 17422.47<br />`Monthly Actual`: 62.97076","Period: 17409.38<br />`Monthly Actual`: 63.07425","Period: 17396.29<br />`Monthly Actual`: 63.17773","Period: 17383.20<br />`Monthly Actual`: 63.28121","Period: 17370.11<br />`Monthly Actual`: 63.38470","Period: 17357.03<br />`Monthly Actual`: 63.48818","Period: 17343.94<br />`Monthly Actual`: 63.59166","Period: 17330.85<br />`Monthly Actual`: 63.69514","Period: 17317.76<br />`Monthly Actual`: 63.79863","Period: 17304.67<br />`Monthly Actual`: 63.90211","Period: 17291.58<br />`Monthly Actual`: 64.00559","Period: 17278.49<br />`Monthly Actual`: 64.10907","Period: 17265.41<br />`Monthly Actual`: 64.21256","Period: 17252.32<br />`Monthly Actual`: 64.31604","Period: 17239.23<br />`Monthly Actual`: 64.41952","Period: 17226.14<br />`Monthly Actual`: 64.52301","Period: 17213.05<br />`Monthly Actual`: 64.62649","Period: 17199.96<br />`Monthly Actual`: 64.72997","Period: 17186.87<br />`Monthly Actual`: 64.83345","Period: 17173.78<br />`Monthly Actual`: 64.93694","Period: 17160.70<br />`Monthly Actual`: 65.04042","Period: 17147.61<br />`Monthly Actual`: 65.14390","Period: 17134.52<br />`Monthly Actual`: 65.24738","Period: 17121.43<br />`Monthly Actual`: 65.35087","Period: 17108.34<br />`Monthly Actual`: 65.45435","Period: 17095.25<br />`Monthly Actual`: 65.55783","Period: 17082.16<br />`Monthly Actual`: 65.66132","Period: 17069.08<br />`Monthly Actual`: 65.76480","Period: 17055.99<br />`Monthly Actual`: 65.86828","Period: 17042.90<br />`Monthly Actual`: 65.97176","Period: 17029.81<br />`Monthly Actual`: 66.07525","Period: 17016.72<br />`Monthly Actual`: 66.17873","Period: 17003.63<br />`Monthly Actual`: 66.28221","Period: 16990.54<br />`Monthly Actual`: 66.38569","Period: 16977.46<br />`Monthly Actual`: 66.48918","Period: 16964.37<br />`Monthly Actual`: 66.59266","Period: 16951.28<br />`Monthly Actual`: 66.69614","Period: 16938.19<br />`Monthly Actual`: 66.79963","Period: 16925.10<br />`Monthly Actual`: 66.90311","Period: 16912.01<br />`Monthly Actual`: 67.00659","Period: 16898.92<br />`Monthly Actual`: 67.11007","Period: 16885.84<br />`Monthly Actual`: 67.21356","Period: 16872.75<br />`Monthly Actual`: 67.31704","Period: 16859.66<br />`Monthly Actual`: 67.42052","Period: 16846.57<br />`Monthly Actual`: 67.52400","Period: 16833.48<br />`Monthly Actual`: 67.62749","Period: 16820.39<br />`Monthly Actual`: 67.73097","Period: 16807.30<br />`Monthly Actual`: 67.83445","Period: 16794.22<br />`Monthly Actual`: 67.93794","Period: 16781.13<br />`Monthly Actual`: 68.04142","Period: 16768.04<br />`Monthly Actual`: 68.14490","Period: 16754.95<br />`Monthly Actual`: 68.24838","Period: 16741.86<br />`Monthly Actual`: 68.35187","Period: 16728.77<br />`Monthly Actual`: 68.45535","Period: 16715.68<br />`Monthly Actual`: 68.55883","Period: 16702.59<br />`Monthly Actual`: 68.66231","Period: 16689.51<br />`Monthly Actual`: 68.76580","Period: 16676.42<br />`Monthly Actual`: 68.86928","Period: 16663.33<br />`Monthly Actual`: 68.97276","Period: 16650.24<br />`Monthly Actual`: 69.07625","Period: 16637.15<br />`Monthly Actual`: 69.17973","Period: 16624.06<br />`Monthly Actual`: 69.28321","Period: 16610.97<br />`Monthly Actual`: 69.38669","Period: 16597.89<br />`Monthly Actual`: 69.49018","Period: 16584.80<br />`Monthly Actual`: 69.59366","Period: 16571.71<br />`Monthly Actual`: 69.69714","Period: 16558.62<br />`Monthly Actual`: 69.80062","Period: 16545.53<br />`Monthly Actual`: 69.90411","Period: 16532.44<br />`Monthly Actual`: 70.00759","Period: 16519.35<br />`Monthly Actual`: 70.11107","Period: 16506.27<br />`Monthly Actual`: 70.21456","Period: 16493.18<br />`Monthly Actual`: 70.31804","Period: 16480.09<br />`Monthly Actual`: 70.42152","Period: 16467.00<br />`Monthly Actual`: 70.52500","Period: 16467.00<br />`Monthly Actual`: 70.52500"],"type":"scatter","mode":"lines","line":{"width":3.77952755905512,"color":"transparent","dash":"solid"},"fill":"toself","fillcolor":"rgba(153,153,153,0.4)","hoveron":"points","hoverinfo":"x+y","showlegend":false,"xaxis":"x","yaxis":"y","frame":null}],"layout":{"margin":{"t":27.8721461187215,"r":7.30593607305936,"b":41.8264840182648,"l":37.2602739726027},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[16415.3,17552.7],"tickmode":"array","ticktext":["2015","2016","2017","2018"],"tickvals":[16436,16801,17167,17532],"categoryorder":"array","categoryarray":["2015","2016","2017","2018"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":{"text":"Period","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[60.6993183167478,72.3286038896787],"tickmode":"array","ticktext":["63","66","69","72"],"tickvals":[63,66,69,72],"categoryorder":"array","categoryarray":["63","66","69","72"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"x","title":{"text":"Monthly On-Time Performance - All Lines","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895}},"hovermode":"closest","barmode":"relative","title":{"text":"Subway cars are arriving at their destination on schedule less.","font":{"size":15}}},"config":{"doubleClick":"reset","showSendToCloud":false,"displayModeBar":false,"scrollZoom":false},"source":"A","attrs":{"2a64485a30ef":{"x":{},"y":{},"type":"scatter"},"2a6415461d27":{"x":{},"y":{}}},"cur_data":"2a64485a30ef","visdat":{"2a64485a30ef":["function (y) ","x"],"2a6415461d27":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+<blockquote>
+<p>“Wait Assessment measures how regularly the trains are spaced during peak hours. To meet the standard, the headway (time between trains) can be no greater than 25% more than the scheduled headway. This provides a percentage of trains passing the standard, but does not account for extra service operated, is not weighted to how many customers are waiting for the trains at different stations, does not distinguish between relatively minor gaps in service and major delays, and is not a true measurement of time customers spend waiting on the platform.” — MTA</p>
+</blockquote>
+<div class="layout-chunk" data-layout="l-body">
+<div id="htmlwidget-69cb56344b05877e8fad" style="width:100%;height:384px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-69cb56344b05877e8fad">{"x":{"data":[{"x":[16467,16495,16526,16556,16587,16617,16648,16679,16709,16740,16770,16801,16832,16861,16892,16922,16953,16983,17014,17045,17075,17106,17136,17167,17198,17226,17257,17287,17318,17348,17379,17410,17440,17471,17501],"y":[78.9,78.9,78.8,78.6,78.4,78.2,77.9,77.6,77.5,77.4,77.4,73.9,74.4,75.1,74.7,75,73.9,73.2,74,72.8,72.4,72.4,72.2,72.3,72.3,72,72.3,71.1,70.9,71.7,71.4,71.3,70.8,70.2,69.3],"text":["Period: 2015-02-01<br />`Monthly Actual`: 78.9","Period: 2015-03-01<br />`Monthly Actual`: 78.9","Period: 2015-04-01<br />`Monthly Actual`: 78.8","Period: 2015-05-01<br />`Monthly Actual`: 78.6","Period: 2015-06-01<br />`Monthly Actual`: 78.4","Period: 2015-07-01<br />`Monthly Actual`: 78.2","Period: 2015-08-01<br />`Monthly Actual`: 77.9","Period: 2015-09-01<br />`Monthly Actual`: 77.6","Period: 2015-10-01<br />`Monthly Actual`: 77.5","Period: 2015-11-01<br />`Monthly Actual`: 77.4","Period: 2015-12-01<br />`Monthly Actual`: 77.4","Period: 2016-01-01<br />`Monthly Actual`: 73.9","Period: 2016-02-01<br />`Monthly Actual`: 74.4","Period: 2016-03-01<br />`Monthly Actual`: 75.1","Period: 2016-04-01<br />`Monthly Actual`: 74.7","Period: 2016-05-01<br />`Monthly Actual`: 75.0","Period: 2016-06-01<br />`Monthly Actual`: 73.9","Period: 2016-07-01<br />`Monthly Actual`: 73.2","Period: 2016-08-01<br />`Monthly Actual`: 74.0","Period: 2016-09-01<br />`Monthly Actual`: 72.8","Period: 2016-10-01<br />`Monthly Actual`: 72.4","Period: 2016-11-01<br />`Monthly Actual`: 72.4","Period: 2016-12-01<br />`Monthly Actual`: 72.2","Period: 2017-01-01<br />`Monthly Actual`: 72.3","Period: 2017-02-01<br />`Monthly Actual`: 72.3","Period: 2017-03-01<br />`Monthly Actual`: 72.0","Period: 2017-04-01<br />`Monthly Actual`: 72.3","Period: 2017-05-01<br />`Monthly Actual`: 71.1","Period: 2017-06-01<br />`Monthly Actual`: 70.9","Period: 2017-07-01<br />`Monthly Actual`: 71.7","Period: 2017-08-01<br />`Monthly Actual`: 71.4","Period: 2017-09-01<br />`Monthly Actual`: 71.3","Period: 2017-10-01<br />`Monthly Actual`: 70.8","Period: 2017-11-01<br />`Monthly Actual`: 70.2","Period: 2017-12-01<br />`Monthly Actual`: 69.3"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(54,100,139,1)","opacity":0.7,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(54,100,139,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[16467,16480.0886075949,16493.1772151899,16506.2658227848,16519.3544303797,16532.4430379747,16545.5316455696,16558.6202531646,16571.7088607595,16584.7974683544,16597.8860759494,16610.9746835443,16624.0632911392,16637.1518987342,16650.2405063291,16663.3291139241,16676.417721519,16689.5063291139,16702.5949367089,16715.6835443038,16728.7721518987,16741.8607594937,16754.9493670886,16768.0379746835,16781.1265822785,16794.2151898734,16807.3037974684,16820.3924050633,16833.4810126582,16846.5696202532,16859.6582278481,16872.746835443,16885.835443038,16898.9240506329,16912.0126582278,16925.1012658228,16938.1898734177,16951.2784810127,16964.3670886076,16977.4556962025,16990.5443037975,17003.6329113924,17016.7215189873,17029.8101265823,17042.8987341772,17055.9873417722,17069.0759493671,17082.164556962,17095.253164557,17108.3417721519,17121.4303797468,17134.5189873418,17147.6075949367,17160.6962025316,17173.7848101266,17186.8734177215,17199.9620253165,17213.0506329114,17226.1392405063,17239.2278481013,17252.3164556962,17265.4050632911,17278.4936708861,17291.582278481,17304.6708860759,17317.7594936709,17330.8481012658,17343.9367088608,17357.0253164557,17370.1139240506,17383.2025316456,17396.2911392405,17409.3797468354,17422.4683544304,17435.5569620253,17448.6455696203,17461.7341772152,17474.8227848101,17487.9113924051,17501],"y":[79.0301535999971,78.9093022613015,78.7884509226059,78.6675995839103,78.5467482452147,78.4258969065191,78.3050455678235,78.1841942291279,78.0633428904323,77.9424915517367,77.8216402130411,77.7007888743454,77.5799375356498,77.4590861969542,77.3382348582586,77.217383519563,77.0965321808674,76.9756808421718,76.8548295034762,76.7339781647806,76.613126826085,76.4922754873894,76.3714241486938,76.2505728099981,76.1297214713026,76.0088701326069,75.8880187939113,75.7671674552157,75.6463161165201,75.5254647778245,75.4046134391289,75.2837621004333,75.1629107617377,75.0420594230421,74.9212080843465,74.8003567456509,74.6795054069553,74.5586540682596,74.437802729564,74.3169513908684,74.1961000521728,74.0752487134772,73.9543973747816,73.833546036086,73.7126946973904,73.5918433586948,73.4709920199992,73.3501406813036,73.229289342608,73.1084380039123,72.9875866652168,72.8667353265211,72.7458839878256,72.6250326491299,72.5041813104343,72.3833299717387,72.2624786330431,72.1416272943475,72.0207759556519,71.8999246169563,71.7790732782607,71.6582219395651,71.5373706008695,71.4165192621739,71.2956679234782,71.1748165847827,71.053965246087,70.9331139073915,70.8122625686958,70.6914112300002,70.5705598913046,70.449708552609,70.3288572139134,70.2080058752178,70.0871545365222,69.9663031978266,69.845451859131,69.7246005204354,69.6037491817398,69.4828978430442],"text":["Period: 16467.00<br />`Monthly Actual`: 79.03015","Period: 16480.09<br />`Monthly Actual`: 78.90930","Period: 16493.18<br />`Monthly Actual`: 78.78845","Period: 16506.27<br />`Monthly Actual`: 78.66760","Period: 16519.35<br />`Monthly Actual`: 78.54675","Period: 16532.44<br />`Monthly Actual`: 78.42590","Period: 16545.53<br />`Monthly Actual`: 78.30505","Period: 16558.62<br />`Monthly Actual`: 78.18419","Period: 16571.71<br />`Monthly Actual`: 78.06334","Period: 16584.80<br />`Monthly Actual`: 77.94249","Period: 16597.89<br />`Monthly Actual`: 77.82164","Period: 16610.97<br />`Monthly Actual`: 77.70079","Period: 16624.06<br />`Monthly Actual`: 77.57994","Period: 16637.15<br />`Monthly Actual`: 77.45909","Period: 16650.24<br />`Monthly Actual`: 77.33823","Period: 16663.33<br />`Monthly Actual`: 77.21738","Period: 16676.42<br />`Monthly Actual`: 77.09653","Period: 16689.51<br />`Monthly Actual`: 76.97568","Period: 16702.59<br />`Monthly Actual`: 76.85483","Period: 16715.68<br />`Monthly Actual`: 76.73398","Period: 16728.77<br />`Monthly Actual`: 76.61313","Period: 16741.86<br />`Monthly Actual`: 76.49228","Period: 16754.95<br />`Monthly Actual`: 76.37142","Period: 16768.04<br />`Monthly Actual`: 76.25057","Period: 16781.13<br />`Monthly Actual`: 76.12972","Period: 16794.22<br />`Monthly Actual`: 76.00887","Period: 16807.30<br />`Monthly Actual`: 75.88802","Period: 16820.39<br />`Monthly Actual`: 75.76717","Period: 16833.48<br />`Monthly Actual`: 75.64632","Period: 16846.57<br />`Monthly Actual`: 75.52546","Period: 16859.66<br />`Monthly Actual`: 75.40461","Period: 16872.75<br />`Monthly Actual`: 75.28376","Period: 16885.84<br />`Monthly Actual`: 75.16291","Period: 16898.92<br />`Monthly Actual`: 75.04206","Period: 16912.01<br />`Monthly Actual`: 74.92121","Period: 16925.10<br />`Monthly Actual`: 74.80036","Period: 16938.19<br />`Monthly Actual`: 74.67951","Period: 16951.28<br />`Monthly Actual`: 74.55865","Period: 16964.37<br />`Monthly Actual`: 74.43780","Period: 16977.46<br />`Monthly Actual`: 74.31695","Period: 16990.54<br />`Monthly Actual`: 74.19610","Period: 17003.63<br />`Monthly Actual`: 74.07525","Period: 17016.72<br />`Monthly Actual`: 73.95440","Period: 17029.81<br />`Monthly Actual`: 73.83355","Period: 17042.90<br />`Monthly Actual`: 73.71269","Period: 17055.99<br />`Monthly Actual`: 73.59184","Period: 17069.08<br />`Monthly Actual`: 73.47099","Period: 17082.16<br />`Monthly Actual`: 73.35014","Period: 17095.25<br />`Monthly Actual`: 73.22929","Period: 17108.34<br />`Monthly Actual`: 73.10844","Period: 17121.43<br />`Monthly Actual`: 72.98759","Period: 17134.52<br />`Monthly Actual`: 72.86674","Period: 17147.61<br />`Monthly Actual`: 72.74588","Period: 17160.70<br />`Monthly Actual`: 72.62503","Period: 17173.78<br />`Monthly Actual`: 72.50418","Period: 17186.87<br />`Monthly Actual`: 72.38333","Period: 17199.96<br />`Monthly Actual`: 72.26248","Period: 17213.05<br />`Monthly Actual`: 72.14163","Period: 17226.14<br />`Monthly Actual`: 72.02078","Period: 17239.23<br />`Monthly Actual`: 71.89992","Period: 17252.32<br />`Monthly Actual`: 71.77907","Period: 17265.41<br />`Monthly Actual`: 71.65822","Period: 17278.49<br />`Monthly Actual`: 71.53737","Period: 17291.58<br />`Monthly Actual`: 71.41652","Period: 17304.67<br />`Monthly Actual`: 71.29567","Period: 17317.76<br />`Monthly Actual`: 71.17482","Period: 17330.85<br />`Monthly Actual`: 71.05397","Period: 17343.94<br />`Monthly Actual`: 70.93311","Period: 17357.03<br />`Monthly Actual`: 70.81226","Period: 17370.11<br />`Monthly Actual`: 70.69141","Period: 17383.20<br />`Monthly Actual`: 70.57056","Period: 17396.29<br />`Monthly Actual`: 70.44971","Period: 17409.38<br />`Monthly Actual`: 70.32886","Period: 17422.47<br />`Monthly Actual`: 70.20801","Period: 17435.56<br />`Monthly Actual`: 70.08715","Period: 17448.65<br />`Monthly Actual`: 69.96630","Period: 17461.73<br />`Monthly Actual`: 69.84545","Period: 17474.82<br />`Monthly Actual`: 69.72460","Period: 17487.91<br />`Monthly Actual`: 69.60375","Period: 17501.00<br />`Monthly Actual`: 69.48290"],"type":"scatter","mode":"lines","name":"fitted values","line":{"width":3.77952755905512,"color":"rgba(51,102,255,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[16467,16480.0886075949,16493.1772151899,16506.2658227848,16519.3544303797,16532.4430379747,16545.5316455696,16558.6202531646,16571.7088607595,16584.7974683544,16597.8860759494,16610.9746835443,16624.0632911392,16637.1518987342,16650.2405063291,16663.3291139241,16676.417721519,16689.5063291139,16702.5949367089,16715.6835443038,16728.7721518987,16741.8607594937,16754.9493670886,16768.0379746835,16781.1265822785,16794.2151898734,16807.3037974684,16820.3924050633,16833.4810126582,16846.5696202532,16859.6582278481,16872.746835443,16885.835443038,16898.9240506329,16912.0126582278,16925.1012658228,16938.1898734177,16951.2784810127,16964.3670886076,16977.4556962025,16990.5443037975,17003.6329113924,17016.7215189873,17029.8101265823,17042.8987341772,17055.9873417722,17069.0759493671,17082.164556962,17095.253164557,17108.3417721519,17121.4303797468,17134.5189873418,17147.6075949367,17160.6962025316,17173.7848101266,17186.8734177215,17199.9620253165,17213.0506329114,17226.1392405063,17239.2278481013,17252.3164556962,17265.4050632911,17278.4936708861,17291.582278481,17304.6708860759,17317.7594936709,17330.8481012658,17343.9367088608,17357.0253164557,17370.1139240506,17383.2025316456,17396.2911392405,17409.3797468354,17422.4683544304,17435.5569620253,17448.6455696203,17461.7341772152,17474.8227848101,17487.9113924051,17501,17501,17501,17487.9113924051,17474.8227848101,17461.7341772152,17448.6455696203,17435.5569620253,17422.4683544304,17409.3797468354,17396.2911392405,17383.2025316456,17370.1139240506,17357.0253164557,17343.9367088608,17330.8481012658,17317.7594936709,17304.6708860759,17291.582278481,17278.4936708861,17265.4050632911,17252.3164556962,17239.2278481013,17226.1392405063,17213.0506329114,17199.9620253165,17186.8734177215,17173.7848101266,17160.6962025316,17147.6075949367,17134.5189873418,17121.4303797468,17108.3417721519,17095.253164557,17082.164556962,17069.0759493671,17055.9873417722,17042.8987341772,17029.8101265823,17016.7215189873,17003.6329113924,16990.5443037975,16977.4556962025,16964.3670886076,16951.2784810127,16938.1898734177,16925.1012658228,16912.0126582278,16898.9240506329,16885.835443038,16872.746835443,16859.6582278481,16846.5696202532,16833.4810126582,16820.3924050633,16807.3037974684,16794.2151898734,16781.1265822785,16768.0379746835,16754.9493670886,16741.8607594937,16728.7721518987,16715.6835443038,16702.5949367089,16689.5063291139,16676.417721519,16663.3291139241,16650.2405063291,16637.1518987342,16624.0632911392,16610.9746835443,16597.8860759494,16584.7974683544,16571.7088607595,16558.6202531646,16545.5316455696,16532.4430379747,16519.3544303797,16506.2658227848,16493.1772151899,16480.0886075949,16467,16467],"y":[78.5332171448942,78.4216311026652,78.3099797039529,78.1982591054183,78.086465188845,77.9745935398474,77.8626394251044,77.7505977680951,77.6384631233418,77.5262296491996,77.41389107928,77.3014406926541,77.1888712830586,77.0761751274232,76.9633439541529,76.8503689117457,76.7372405384938,76.6239487342176,76.510482735217,76.3968310938852,76.2829816647175,76.1689215987573,76.0546373488254,75.9401146881743,75.8253387454455,75.7102940589639,75.5949646534148,75.4793341417677,75.3633858548708,75.2471030003808,75.1304688515761,75.0134669650987,74.8960814248109,74.7782971068136,74.6600999583951,74.5414772814757,74.4224180092407,74.302912963402,74.1829550791488,74.0625395855434,73.9416641309403,73.8203288458788,73.698536339574,73.5762916302213,73.4536020134059,73.3304768765094,73.2069274697774,73.0829666464201,72.9586085846917,72.8338685044144,72.7087623890836,72.5833067227671,72.4575182487909,72.3314137549318,72.205009887719,72.0783229966266,71.9513690074723,71.824163323263,71.6967207500019,71.5690554445646,71.4411808815903,71.3131098363662,71.1848543808466,71.0564258901962,70.9278350575411,70.7990919149206,70.6702058587353,70.5411856782775,70.4120395861844,70.2827752498876,70.1533998233296,70.0239199783829,69.8943419355535,69.7646714936578,69.6349140582628,69.5050746687463,69.3751580238991,69.2451685060321,69.1151102035866,68.9849869322733,68.9849869322733,69.980808753815,70.092388159893,70.2040325348386,70.3157456943628,70.4275317269069,70.5393950147816,70.6513402567777,70.7633724922733,70.8754971268351,70.9877199592796,71.1000472101127,71.2124855512073,71.3250421365054,71.4377246334388,71.5505412546447,71.6635007894154,71.7766126341516,71.8898868208923,72.003334042764,72.1169656749311,72.230793789348,72.3448311613019,72.459091265432,72.5735882586139,72.6883369468509,72.8033527331497,72.9186515433281,73.0342497268602,73.1501639302752,73.2664109413499,73.3830075034103,73.4999701005243,73.617314716187,73.735056570221,73.8532098408802,73.9717873813749,74.0908004419507,74.2102584099892,74.3301685810756,74.4505359734054,74.5713631961934,74.6926503799793,74.8143951731173,74.9365928046698,75.0592362098261,75.1823162102978,75.3058217392706,75.4297400986645,75.5540572357679,75.6787580266817,75.8038265552683,75.9292463781695,76.0550007686638,76.1810729344079,76.3074462062499,76.4341041971596,76.561030931822,76.6882109485622,76.8156293760215,76.9432719874524,77.071125235676,77.1991762717354,77.327412950126,77.455823823241,77.5843981273803,77.7131257623643,77.8419972664852,77.971003788241,78.1001370560368,78.2293893468021,78.3587534542737,78.4882226575228,78.6177906901606,78.7474517105426,78.8772002731908,79.0070313015844,79.1369400624023,79.2669221412589,79.3969734199378,79.5270900551,78.5332171448942],"text":["Period: 16467.00<br />`Monthly Actual`: 79.03015","Period: 16480.09<br />`Monthly Actual`: 78.90930","Period: 16493.18<br />`Monthly Actual`: 78.78845","Period: 16506.27<br />`Monthly Actual`: 78.66760","Period: 16519.35<br />`Monthly Actual`: 78.54675","Period: 16532.44<br />`Monthly Actual`: 78.42590","Period: 16545.53<br />`Monthly Actual`: 78.30505","Period: 16558.62<br />`Monthly Actual`: 78.18419","Period: 16571.71<br />`Monthly Actual`: 78.06334","Period: 16584.80<br />`Monthly Actual`: 77.94249","Period: 16597.89<br />`Monthly Actual`: 77.82164","Period: 16610.97<br />`Monthly Actual`: 77.70079","Period: 16624.06<br />`Monthly Actual`: 77.57994","Period: 16637.15<br />`Monthly Actual`: 77.45909","Period: 16650.24<br />`Monthly Actual`: 77.33823","Period: 16663.33<br />`Monthly Actual`: 77.21738","Period: 16676.42<br />`Monthly Actual`: 77.09653","Period: 16689.51<br />`Monthly Actual`: 76.97568","Period: 16702.59<br />`Monthly Actual`: 76.85483","Period: 16715.68<br />`Monthly Actual`: 76.73398","Period: 16728.77<br />`Monthly Actual`: 76.61313","Period: 16741.86<br />`Monthly Actual`: 76.49228","Period: 16754.95<br />`Monthly Actual`: 76.37142","Period: 16768.04<br />`Monthly Actual`: 76.25057","Period: 16781.13<br />`Monthly Actual`: 76.12972","Period: 16794.22<br />`Monthly Actual`: 76.00887","Period: 16807.30<br />`Monthly Actual`: 75.88802","Period: 16820.39<br />`Monthly Actual`: 75.76717","Period: 16833.48<br />`Monthly Actual`: 75.64632","Period: 16846.57<br />`Monthly Actual`: 75.52546","Period: 16859.66<br />`Monthly Actual`: 75.40461","Period: 16872.75<br />`Monthly Actual`: 75.28376","Period: 16885.84<br />`Monthly Actual`: 75.16291","Period: 16898.92<br />`Monthly Actual`: 75.04206","Period: 16912.01<br />`Monthly Actual`: 74.92121","Period: 16925.10<br />`Monthly Actual`: 74.80036","Period: 16938.19<br />`Monthly Actual`: 74.67951","Period: 16951.28<br />`Monthly Actual`: 74.55865","Period: 16964.37<br />`Monthly Actual`: 74.43780","Period: 16977.46<br />`Monthly Actual`: 74.31695","Period: 16990.54<br />`Monthly Actual`: 74.19610","Period: 17003.63<br />`Monthly Actual`: 74.07525","Period: 17016.72<br />`Monthly Actual`: 73.95440","Period: 17029.81<br />`Monthly Actual`: 73.83355","Period: 17042.90<br />`Monthly Actual`: 73.71269","Period: 17055.99<br />`Monthly Actual`: 73.59184","Period: 17069.08<br />`Monthly Actual`: 73.47099","Period: 17082.16<br />`Monthly Actual`: 73.35014","Period: 17095.25<br />`Monthly Actual`: 73.22929","Period: 17108.34<br />`Monthly Actual`: 73.10844","Period: 17121.43<br />`Monthly Actual`: 72.98759","Period: 17134.52<br />`Monthly Actual`: 72.86674","Period: 17147.61<br />`Monthly Actual`: 72.74588","Period: 17160.70<br />`Monthly Actual`: 72.62503","Period: 17173.78<br />`Monthly Actual`: 72.50418","Period: 17186.87<br />`Monthly Actual`: 72.38333","Period: 17199.96<br />`Monthly Actual`: 72.26248","Period: 17213.05<br />`Monthly Actual`: 72.14163","Period: 17226.14<br />`Monthly Actual`: 72.02078","Period: 17239.23<br />`Monthly Actual`: 71.89992","Period: 17252.32<br />`Monthly Actual`: 71.77907","Period: 17265.41<br />`Monthly Actual`: 71.65822","Period: 17278.49<br />`Monthly Actual`: 71.53737","Period: 17291.58<br />`Monthly Actual`: 71.41652","Period: 17304.67<br />`Monthly Actual`: 71.29567","Period: 17317.76<br />`Monthly Actual`: 71.17482","Period: 17330.85<br />`Monthly Actual`: 71.05397","Period: 17343.94<br />`Monthly Actual`: 70.93311","Period: 17357.03<br />`Monthly Actual`: 70.81226","Period: 17370.11<br />`Monthly Actual`: 70.69141","Period: 17383.20<br />`Monthly Actual`: 70.57056","Period: 17396.29<br />`Monthly Actual`: 70.44971","Period: 17409.38<br />`Monthly Actual`: 70.32886","Period: 17422.47<br />`Monthly Actual`: 70.20801","Period: 17435.56<br />`Monthly Actual`: 70.08715","Period: 17448.65<br />`Monthly Actual`: 69.96630","Period: 17461.73<br />`Monthly Actual`: 69.84545","Period: 17474.82<br />`Monthly Actual`: 69.72460","Period: 17487.91<br />`Monthly Actual`: 69.60375","Period: 17501.00<br />`Monthly Actual`: 69.48290","Period: 17501.00<br />`Monthly Actual`: 69.48290","Period: 17501.00<br />`Monthly Actual`: 69.48290","Period: 17487.91<br />`Monthly Actual`: 69.60375","Period: 17474.82<br />`Monthly Actual`: 69.72460","Period: 17461.73<br />`Monthly Actual`: 69.84545","Period: 17448.65<br />`Monthly Actual`: 69.96630","Period: 17435.56<br />`Monthly Actual`: 70.08715","Period: 17422.47<br />`Monthly Actual`: 70.20801","Period: 17409.38<br />`Monthly Actual`: 70.32886","Period: 17396.29<br />`Monthly Actual`: 70.44971","Period: 17383.20<br />`Monthly Actual`: 70.57056","Period: 17370.11<br />`Monthly Actual`: 70.69141","Period: 17357.03<br />`Monthly Actual`: 70.81226","Period: 17343.94<br />`Monthly Actual`: 70.93311","Period: 17330.85<br />`Monthly Actual`: 71.05397","Period: 17317.76<br />`Monthly Actual`: 71.17482","Period: 17304.67<br />`Monthly Actual`: 71.29567","Period: 17291.58<br />`Monthly Actual`: 71.41652","Period: 17278.49<br />`Monthly Actual`: 71.53737","Period: 17265.41<br />`Monthly Actual`: 71.65822","Period: 17252.32<br />`Monthly Actual`: 71.77907","Period: 17239.23<br />`Monthly Actual`: 71.89992","Period: 17226.14<br />`Monthly Actual`: 72.02078","Period: 17213.05<br />`Monthly Actual`: 72.14163","Period: 17199.96<br />`Monthly Actual`: 72.26248","Period: 17186.87<br />`Monthly Actual`: 72.38333","Period: 17173.78<br />`Monthly Actual`: 72.50418","Period: 17160.70<br />`Monthly Actual`: 72.62503","Period: 17147.61<br />`Monthly Actual`: 72.74588","Period: 17134.52<br />`Monthly Actual`: 72.86674","Period: 17121.43<br />`Monthly Actual`: 72.98759","Period: 17108.34<br />`Monthly Actual`: 73.10844","Period: 17095.25<br />`Monthly Actual`: 73.22929","Period: 17082.16<br />`Monthly Actual`: 73.35014","Period: 17069.08<br />`Monthly Actual`: 73.47099","Period: 17055.99<br />`Monthly Actual`: 73.59184","Period: 17042.90<br />`Monthly Actual`: 73.71269","Period: 17029.81<br />`Monthly Actual`: 73.83355","Period: 17016.72<br />`Monthly Actual`: 73.95440","Period: 17003.63<br />`Monthly Actual`: 74.07525","Period: 16990.54<br />`Monthly Actual`: 74.19610","Period: 16977.46<br />`Monthly Actual`: 74.31695","Period: 16964.37<br />`Monthly Actual`: 74.43780","Period: 16951.28<br />`Monthly Actual`: 74.55865","Period: 16938.19<br />`Monthly Actual`: 74.67951","Period: 16925.10<br />`Monthly Actual`: 74.80036","Period: 16912.01<br />`Monthly Actual`: 74.92121","Period: 16898.92<br />`Monthly Actual`: 75.04206","Period: 16885.84<br />`Monthly Actual`: 75.16291","Period: 16872.75<br />`Monthly Actual`: 75.28376","Period: 16859.66<br />`Monthly Actual`: 75.40461","Period: 16846.57<br />`Monthly Actual`: 75.52546","Period: 16833.48<br />`Monthly Actual`: 75.64632","Period: 16820.39<br />`Monthly Actual`: 75.76717","Period: 16807.30<br />`Monthly Actual`: 75.88802","Period: 16794.22<br />`Monthly Actual`: 76.00887","Period: 16781.13<br />`Monthly Actual`: 76.12972","Period: 16768.04<br />`Monthly Actual`: 76.25057","Period: 16754.95<br />`Monthly Actual`: 76.37142","Period: 16741.86<br />`Monthly Actual`: 76.49228","Period: 16728.77<br />`Monthly Actual`: 76.61313","Period: 16715.68<br />`Monthly Actual`: 76.73398","Period: 16702.59<br />`Monthly Actual`: 76.85483","Period: 16689.51<br />`Monthly Actual`: 76.97568","Period: 16676.42<br />`Monthly Actual`: 77.09653","Period: 16663.33<br />`Monthly Actual`: 77.21738","Period: 16650.24<br />`Monthly Actual`: 77.33823","Period: 16637.15<br />`Monthly Actual`: 77.45909","Period: 16624.06<br />`Monthly Actual`: 77.57994","Period: 16610.97<br />`Monthly Actual`: 77.70079","Period: 16597.89<br />`Monthly Actual`: 77.82164","Period: 16584.80<br />`Monthly Actual`: 77.94249","Period: 16571.71<br />`Monthly Actual`: 78.06334","Period: 16558.62<br />`Monthly Actual`: 78.18419","Period: 16545.53<br />`Monthly Actual`: 78.30505","Period: 16532.44<br />`Monthly Actual`: 78.42590","Period: 16519.35<br />`Monthly Actual`: 78.54675","Period: 16506.27<br />`Monthly Actual`: 78.66760","Period: 16493.18<br />`Monthly Actual`: 78.78845","Period: 16480.09<br />`Monthly Actual`: 78.90930","Period: 16467.00<br />`Monthly Actual`: 79.03015","Period: 16467.00<br />`Monthly Actual`: 79.03015"],"type":"scatter","mode":"lines","line":{"width":3.77952755905512,"color":"transparent","dash":"solid"},"fill":"toself","fillcolor":"rgba(153,153,153,0.4)","hoveron":"points","hoverinfo":"x+y","showlegend":false,"xaxis":"x","yaxis":"y","frame":null}],"layout":{"margin":{"t":27.8721461187215,"r":7.30593607305936,"b":41.8264840182648,"l":48.9497716894977},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[16415.3,17552.7],"tickmode":"array","ticktext":["2015","2016","2017","2018"],"tickvals":[16436,16801,17167,17532],"categoryorder":"array","categoryarray":["2015","2016","2017","2018"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":{"text":"Period","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[68.4578817761319,80.0541952112414],"tickmode":"array","ticktext":["70.0","72.5","75.0","77.5","80.0"],"tickvals":[70,72.5,75,77.5,80],"categoryorder":"array","categoryarray":["70.0","72.5","75.0","77.5","80.0"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"x","title":{"text":"Subway Wait Assessment - All Lines","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895}},"hovermode":"closest","barmode":"relative","title":{"text":"Subway cars are less routinely spaced during peak hours.","font":{"size":15}}},"config":{"doubleClick":"reset","showSendToCloud":false,"displayModeBar":false,"scrollZoom":false},"source":"A","attrs":{"2a641af76363":{"x":{},"y":{},"type":"scatter"},"2a642f076ea6":{"x":{},"y":{}}},"cur_data":"2a641af76363","visdat":{"2a641af76363":["function (y) ","x"],"2a642f076ea6":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+<blockquote>
+<p>“Mean Distance Between Failures (MDBF) reports how frequently car-related problems such as door failures, loss of motor power, or brake issues cause a delay of over five minutes. It is calculated by dividing the number of miles train cars run in service by the number of incidents due to car‐related problems.” — MTA</p>
+</blockquote>
+<div class="layout-chunk" data-layout="l-body">
+<div id="htmlwidget-c3707a553630a7bc8ea7" style="width:100%;height:384px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c3707a553630a7bc8ea7">{"x":{"data":[{"x":[16467,16495,16526,16556,16587,16617,16648,16679,16709,16740,16770,16801,16832,16861,16892,16922,16953,16983,17014,17045,17075,17106,17136,17167,17198,17226,17257,17287,17318,17348,17379,17410,17440,17471,17501],"y":[118482,143146,157519,161720,141061,114591,137149,117445,123241,124051,116135,115580,108560,114647,124787,140193,114987,106253,88277,108232,115587,121185,105365,126292,125470,126076,130176,133209,122822,107209,100186,123349,123168,126578,120370],"text":["Period: 2015-02-01<br />`Monthly Actual`: 118482","Period: 2015-03-01<br />`Monthly Actual`: 143146","Period: 2015-04-01<br />`Monthly Actual`: 157519","Period: 2015-05-01<br />`Monthly Actual`: 161720","Period: 2015-06-01<br />`Monthly Actual`: 141061","Period: 2015-07-01<br />`Monthly Actual`: 114591","Period: 2015-08-01<br />`Monthly Actual`: 137149","Period: 2015-09-01<br />`Monthly Actual`: 117445","Period: 2015-10-01<br />`Monthly Actual`: 123241","Period: 2015-11-01<br />`Monthly Actual`: 124051","Period: 2015-12-01<br />`Monthly Actual`: 116135","Period: 2016-01-01<br />`Monthly Actual`: 115580","Period: 2016-02-01<br />`Monthly Actual`: 108560","Period: 2016-03-01<br />`Monthly Actual`: 114647","Period: 2016-04-01<br />`Monthly Actual`: 124787","Period: 2016-05-01<br />`Monthly Actual`: 140193","Period: 2016-06-01<br />`Monthly Actual`: 114987","Period: 2016-07-01<br />`Monthly Actual`: 106253","Period: 2016-08-01<br />`Monthly Actual`:  88277","Period: 2016-09-01<br />`Monthly Actual`: 108232","Period: 2016-10-01<br />`Monthly Actual`: 115587","Period: 2016-11-01<br />`Monthly Actual`: 121185","Period: 2016-12-01<br />`Monthly Actual`: 105365","Period: 2017-01-01<br />`Monthly Actual`: 126292","Period: 2017-02-01<br />`Monthly Actual`: 125470","Period: 2017-03-01<br />`Monthly Actual`: 126076","Period: 2017-04-01<br />`Monthly Actual`: 130176","Period: 2017-05-01<br />`Monthly Actual`: 133209","Period: 2017-06-01<br />`Monthly Actual`: 122822","Period: 2017-07-01<br />`Monthly Actual`: 107209","Period: 2017-08-01<br />`Monthly Actual`: 100186","Period: 2017-09-01<br />`Monthly Actual`: 123349","Period: 2017-10-01<br />`Monthly Actual`: 123168","Period: 2017-11-01<br />`Monthly Actual`: 126578","Period: 2017-12-01<br />`Monthly Actual`: 120370"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(54,100,139,1)","opacity":0.7,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(54,100,139,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[16467,16480.0886075949,16493.1772151899,16506.2658227848,16519.3544303797,16532.4430379747,16545.5316455696,16558.6202531646,16571.7088607595,16584.7974683544,16597.8860759494,16610.9746835443,16624.0632911392,16637.1518987342,16650.2405063291,16663.3291139241,16676.417721519,16689.5063291139,16702.5949367089,16715.6835443038,16728.7721518987,16741.8607594937,16754.9493670886,16768.0379746835,16781.1265822785,16794.2151898734,16807.3037974684,16820.3924050633,16833.4810126582,16846.5696202532,16859.6582278481,16872.746835443,16885.835443038,16898.9240506329,16912.0126582278,16925.1012658228,16938.1898734177,16951.2784810127,16964.3670886076,16977.4556962025,16990.5443037975,17003.6329113924,17016.7215189873,17029.8101265823,17042.8987341772,17055.9873417722,17069.0759493671,17082.164556962,17095.253164557,17108.3417721519,17121.4303797468,17134.5189873418,17147.6075949367,17160.6962025316,17173.7848101266,17186.8734177215,17199.9620253165,17213.0506329114,17226.1392405063,17239.2278481013,17252.3164556962,17265.4050632911,17278.4936708861,17291.582278481,17304.6708860759,17317.7594936709,17330.8481012658,17343.9367088608,17357.0253164557,17370.1139240506,17383.2025316456,17396.2911392405,17409.3797468354,17422.4683544304,17435.5569620253,17448.6455696203,17461.7341772152,17474.8227848101,17487.9113924051,17501],"y":[130962.05401836,130744.351970443,130526.649922526,130308.947874609,130091.245826692,129873.543778776,129655.841730859,129438.139682942,129220.437635025,129002.735587108,128785.033539192,128567.331491275,128349.629443358,128131.927395441,127914.225347525,127696.523299608,127478.821251691,127261.119203774,127043.417155857,126825.715107941,126608.013060024,126390.311012107,126172.60896419,125954.906916273,125737.204868357,125519.50282044,125301.800772523,125084.098724606,124866.39667669,124648.694628773,124430.992580856,124213.290532939,123995.588485022,123777.886437106,123560.184389189,123342.482341272,123124.780293355,122907.078245438,122689.376197522,122471.674149605,122253.972101688,122036.270053771,121818.568005854,121600.865957938,121383.163910021,121165.461862104,120947.759814187,120730.057766271,120512.355718354,120294.653670437,120076.95162252,119859.249574603,119641.547526687,119423.84547877,119206.143430853,118988.441382936,118770.73933502,118553.037287103,118335.335239186,118117.633191269,117899.931143352,117682.229095436,117464.527047519,117246.824999602,117029.122951685,116811.420903768,116593.718855852,116376.016807935,116158.314760018,115940.612712101,115722.910664184,115505.208616268,115287.506568351,115069.804520434,114852.102472517,114634.400424601,114416.698376684,114198.996328767,113981.29428085,113763.592232933],"text":["Period: 16467.00<br />`Monthly Actual`: 130962.1","Period: 16480.09<br />`Monthly Actual`: 130744.4","Period: 16493.18<br />`Monthly Actual`: 130526.6","Period: 16506.27<br />`Monthly Actual`: 130308.9","Period: 16519.35<br />`Monthly Actual`: 130091.2","Period: 16532.44<br />`Monthly Actual`: 129873.5","Period: 16545.53<br />`Monthly Actual`: 129655.8","Period: 16558.62<br />`Monthly Actual`: 129438.1","Period: 16571.71<br />`Monthly Actual`: 129220.4","Period: 16584.80<br />`Monthly Actual`: 129002.7","Period: 16597.89<br />`Monthly Actual`: 128785.0","Period: 16610.97<br />`Monthly Actual`: 128567.3","Period: 16624.06<br />`Monthly Actual`: 128349.6","Period: 16637.15<br />`Monthly Actual`: 128131.9","Period: 16650.24<br />`Monthly Actual`: 127914.2","Period: 16663.33<br />`Monthly Actual`: 127696.5","Period: 16676.42<br />`Monthly Actual`: 127478.8","Period: 16689.51<br />`Monthly Actual`: 127261.1","Period: 16702.59<br />`Monthly Actual`: 127043.4","Period: 16715.68<br />`Monthly Actual`: 126825.7","Period: 16728.77<br />`Monthly Actual`: 126608.0","Period: 16741.86<br />`Monthly Actual`: 126390.3","Period: 16754.95<br />`Monthly Actual`: 126172.6","Period: 16768.04<br />`Monthly Actual`: 125954.9","Period: 16781.13<br />`Monthly Actual`: 125737.2","Period: 16794.22<br />`Monthly Actual`: 125519.5","Period: 16807.30<br />`Monthly Actual`: 125301.8","Period: 16820.39<br />`Monthly Actual`: 125084.1","Period: 16833.48<br />`Monthly Actual`: 124866.4","Period: 16846.57<br />`Monthly Actual`: 124648.7","Period: 16859.66<br />`Monthly Actual`: 124431.0","Period: 16872.75<br />`Monthly Actual`: 124213.3","Period: 16885.84<br />`Monthly Actual`: 123995.6","Period: 16898.92<br />`Monthly Actual`: 123777.9","Period: 16912.01<br />`Monthly Actual`: 123560.2","Period: 16925.10<br />`Monthly Actual`: 123342.5","Period: 16938.19<br />`Monthly Actual`: 123124.8","Period: 16951.28<br />`Monthly Actual`: 122907.1","Period: 16964.37<br />`Monthly Actual`: 122689.4","Period: 16977.46<br />`Monthly Actual`: 122471.7","Period: 16990.54<br />`Monthly Actual`: 122254.0","Period: 17003.63<br />`Monthly Actual`: 122036.3","Period: 17016.72<br />`Monthly Actual`: 121818.6","Period: 17029.81<br />`Monthly Actual`: 121600.9","Period: 17042.90<br />`Monthly Actual`: 121383.2","Period: 17055.99<br />`Monthly Actual`: 121165.5","Period: 17069.08<br />`Monthly Actual`: 120947.8","Period: 17082.16<br />`Monthly Actual`: 120730.1","Period: 17095.25<br />`Monthly Actual`: 120512.4","Period: 17108.34<br />`Monthly Actual`: 120294.7","Period: 17121.43<br />`Monthly Actual`: 120077.0","Period: 17134.52<br />`Monthly Actual`: 119859.2","Period: 17147.61<br />`Monthly Actual`: 119641.5","Period: 17160.70<br />`Monthly Actual`: 119423.8","Period: 17173.78<br />`Monthly Actual`: 119206.1","Period: 17186.87<br />`Monthly Actual`: 118988.4","Period: 17199.96<br />`Monthly Actual`: 118770.7","Period: 17213.05<br />`Monthly Actual`: 118553.0","Period: 17226.14<br />`Monthly Actual`: 118335.3","Period: 17239.23<br />`Monthly Actual`: 118117.6","Period: 17252.32<br />`Monthly Actual`: 117899.9","Period: 17265.41<br />`Monthly Actual`: 117682.2","Period: 17278.49<br />`Monthly Actual`: 117464.5","Period: 17291.58<br />`Monthly Actual`: 117246.8","Period: 17304.67<br />`Monthly Actual`: 117029.1","Period: 17317.76<br />`Monthly Actual`: 116811.4","Period: 17330.85<br />`Monthly Actual`: 116593.7","Period: 17343.94<br />`Monthly Actual`: 116376.0","Period: 17357.03<br />`Monthly Actual`: 116158.3","Period: 17370.11<br />`Monthly Actual`: 115940.6","Period: 17383.20<br />`Monthly Actual`: 115722.9","Period: 17396.29<br />`Monthly Actual`: 115505.2","Period: 17409.38<br />`Monthly Actual`: 115287.5","Period: 17422.47<br />`Monthly Actual`: 115069.8","Period: 17435.56<br />`Monthly Actual`: 114852.1","Period: 17448.65<br />`Monthly Actual`: 114634.4","Period: 17461.73<br />`Monthly Actual`: 114416.7","Period: 17474.82<br />`Monthly Actual`: 114199.0","Period: 17487.91<br />`Monthly Actual`: 113981.3","Period: 17501.00<br />`Monthly Actual`: 113763.6"],"type":"scatter","mode":"lines","name":"fitted values","line":{"width":3.77952755905512,"color":"rgba(51,102,255,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[16467,16480.0886075949,16493.1772151899,16506.2658227848,16519.3544303797,16532.4430379747,16545.5316455696,16558.6202531646,16571.7088607595,16584.7974683544,16597.8860759494,16610.9746835443,16624.0632911392,16637.1518987342,16650.2405063291,16663.3291139241,16676.417721519,16689.5063291139,16702.5949367089,16715.6835443038,16728.7721518987,16741.8607594937,16754.9493670886,16768.0379746835,16781.1265822785,16794.2151898734,16807.3037974684,16820.3924050633,16833.4810126582,16846.5696202532,16859.6582278481,16872.746835443,16885.835443038,16898.9240506329,16912.0126582278,16925.1012658228,16938.1898734177,16951.2784810127,16964.3670886076,16977.4556962025,16990.5443037975,17003.6329113924,17016.7215189873,17029.8101265823,17042.8987341772,17055.9873417722,17069.0759493671,17082.164556962,17095.253164557,17108.3417721519,17121.4303797468,17134.5189873418,17147.6075949367,17160.6962025316,17173.7848101266,17186.8734177215,17199.9620253165,17213.0506329114,17226.1392405063,17239.2278481013,17252.3164556962,17265.4050632911,17278.4936708861,17291.582278481,17304.6708860759,17317.7594936709,17330.8481012658,17343.9367088608,17357.0253164557,17370.1139240506,17383.2025316456,17396.2911392405,17409.3797468354,17422.4683544304,17435.5569620253,17448.6455696203,17461.7341772152,17474.8227848101,17487.9113924051,17501,17501,17501,17487.9113924051,17474.8227848101,17461.7341772152,17448.6455696203,17435.5569620253,17422.4683544304,17409.3797468354,17396.2911392405,17383.2025316456,17370.1139240506,17357.0253164557,17343.9367088608,17330.8481012658,17317.7594936709,17304.6708860759,17291.582278481,17278.4936708861,17265.4050632911,17252.3164556962,17239.2278481013,17226.1392405063,17213.0506329114,17199.9620253165,17186.8734177215,17173.7848101266,17160.6962025316,17147.6075949367,17134.5189873418,17121.4303797468,17108.3417721519,17095.253164557,17082.164556962,17069.0759493671,17055.9873417722,17042.8987341772,17029.8101265823,17016.7215189873,17003.6329113924,16990.5443037975,16977.4556962025,16964.3670886076,16951.2784810127,16938.1898734177,16925.1012658228,16912.0126582278,16898.9240506329,16885.835443038,16872.746835443,16859.6582278481,16846.5696202532,16833.4810126582,16820.3924050633,16807.3037974684,16794.2151898734,16781.1265822785,16768.0379746835,16754.9493670886,16741.8607594937,16728.7721518987,16715.6835443038,16702.5949367089,16689.5063291139,16676.417721519,16663.3291139241,16650.2405063291,16637.1518987342,16624.0632911392,16610.9746835443,16597.8860759494,16584.7974683544,16571.7088607595,16558.6202531646,16545.5316455696,16532.4430379747,16519.3544303797,16506.2658227848,16493.1772151899,16480.0886075949,16467,16467],"y":[121457.219811472,121416.733795682,121374.99771556,121331.938060097,121287.476060742,121241.527284158,121194.001196775,121144.800700685,121093.821640995,121040.95228538,120986.072777501,120929.054567091,120869.759820957,120808.040821009,120743.739357606,120676.686129307,120606.700163344,120533.588274992,120457.144588466,120377.150146984,120293.372645177,120205.566322841,120113.472064974,120016.817758563,119915.318961209,119808.67993961,119696.595136151,119578.751118389,119454.829057784,119324.50776953,119187.467323959,119043.393211255,118891.981005676,118732.941434515,118566.005713517,118390.930968283,118207.505525396,118015.553833017,117814.940763498,117605.575063781,117387.411754266,117160.453331767,116924.749702371,116680.396848403,116427.534311504,116166.341642809,115897.034024197,115619.857297226,115335.082647381,115043.001182081,114743.918615408,114438.150235827,114126.0162906,113807.837877184,113483.933391424,113154.615547428,112820.188956088,112480.948228566,112137.176557219,111789.144718629,111437.110440341,111081.31807349,110721.998516658,110359.369341034,109993.635072551,109624.987592619,109253.606624884,108879.660280911,108503.305642666,108124.689364046,107743.948277504,107361.20999502,106976.593495339,106590.209691619,106202.161975379,105812.546734098,105421.453840893,105028.967115609,104635.164757293,104240.119748514,104240.119748514,123287.064717353,123327.423804408,123369.025541925,123411.942912475,123456.254115103,123502.042969655,123549.399349249,123598.419641363,123649.207237515,123701.873050865,123756.536060157,123813.32387737,123872.373334959,123933.83108682,123997.854214918,124064.61083082,124134.28065817,124207.055578379,124283.140117381,124362.751846363,124446.121663909,124533.493921153,124625.126345639,124721.289713951,124822.267218445,124928.353470282,125039.853080356,125157.078762774,125280.348913379,125409.984629632,125546.306158793,125689.628789326,125840.258235315,125998.485604177,126164.582081399,126338.793508538,126521.335067472,126712.386309338,126912.086775776,127120.53244911,127337.773235429,127563.811631545,127798.60265786,128042.055061315,128294.033714261,128554.363064861,128822.831439696,129099.195964369,129383.187854623,129674.517837753,129972.881488015,130277.964295595,130589.446330823,130907.006408896,131230.32570127,131559.090775504,131892.996073984,132231.745863406,132575.055701373,132922.653474871,133274.280068897,133629.689723249,133988.650132556,134350.942340038,134716.360469909,135084.711337443,135455.813969873,135829.499065759,136205.608415459,136583.994300882,136964.518888837,137347.053629056,137731.478665199,138117.682264943,138505.560273393,138895.015592643,139285.957689121,139678.302129492,140071.970145203,140466.888225247,121457.219811472],"text":["Period: 16467.00<br />`Monthly Actual`: 130962.1","Period: 16480.09<br />`Monthly Actual`: 130744.4","Period: 16493.18<br />`Monthly Actual`: 130526.6","Period: 16506.27<br />`Monthly Actual`: 130308.9","Period: 16519.35<br />`Monthly Actual`: 130091.2","Period: 16532.44<br />`Monthly Actual`: 129873.5","Period: 16545.53<br />`Monthly Actual`: 129655.8","Period: 16558.62<br />`Monthly Actual`: 129438.1","Period: 16571.71<br />`Monthly Actual`: 129220.4","Period: 16584.80<br />`Monthly Actual`: 129002.7","Period: 16597.89<br />`Monthly Actual`: 128785.0","Period: 16610.97<br />`Monthly Actual`: 128567.3","Period: 16624.06<br />`Monthly Actual`: 128349.6","Period: 16637.15<br />`Monthly Actual`: 128131.9","Period: 16650.24<br />`Monthly Actual`: 127914.2","Period: 16663.33<br />`Monthly Actual`: 127696.5","Period: 16676.42<br />`Monthly Actual`: 127478.8","Period: 16689.51<br />`Monthly Actual`: 127261.1","Period: 16702.59<br />`Monthly Actual`: 127043.4","Period: 16715.68<br />`Monthly Actual`: 126825.7","Period: 16728.77<br />`Monthly Actual`: 126608.0","Period: 16741.86<br />`Monthly Actual`: 126390.3","Period: 16754.95<br />`Monthly Actual`: 126172.6","Period: 16768.04<br />`Monthly Actual`: 125954.9","Period: 16781.13<br />`Monthly Actual`: 125737.2","Period: 16794.22<br />`Monthly Actual`: 125519.5","Period: 16807.30<br />`Monthly Actual`: 125301.8","Period: 16820.39<br />`Monthly Actual`: 125084.1","Period: 16833.48<br />`Monthly Actual`: 124866.4","Period: 16846.57<br />`Monthly Actual`: 124648.7","Period: 16859.66<br />`Monthly Actual`: 124431.0","Period: 16872.75<br />`Monthly Actual`: 124213.3","Period: 16885.84<br />`Monthly Actual`: 123995.6","Period: 16898.92<br />`Monthly Actual`: 123777.9","Period: 16912.01<br />`Monthly Actual`: 123560.2","Period: 16925.10<br />`Monthly Actual`: 123342.5","Period: 16938.19<br />`Monthly Actual`: 123124.8","Period: 16951.28<br />`Monthly Actual`: 122907.1","Period: 16964.37<br />`Monthly Actual`: 122689.4","Period: 16977.46<br />`Monthly Actual`: 122471.7","Period: 16990.54<br />`Monthly Actual`: 122254.0","Period: 17003.63<br />`Monthly Actual`: 122036.3","Period: 17016.72<br />`Monthly Actual`: 121818.6","Period: 17029.81<br />`Monthly Actual`: 121600.9","Period: 17042.90<br />`Monthly Actual`: 121383.2","Period: 17055.99<br />`Monthly Actual`: 121165.5","Period: 17069.08<br />`Monthly Actual`: 120947.8","Period: 17082.16<br />`Monthly Actual`: 120730.1","Period: 17095.25<br />`Monthly Actual`: 120512.4","Period: 17108.34<br />`Monthly Actual`: 120294.7","Period: 17121.43<br />`Monthly Actual`: 120077.0","Period: 17134.52<br />`Monthly Actual`: 119859.2","Period: 17147.61<br />`Monthly Actual`: 119641.5","Period: 17160.70<br />`Monthly Actual`: 119423.8","Period: 17173.78<br />`Monthly Actual`: 119206.1","Period: 17186.87<br />`Monthly Actual`: 118988.4","Period: 17199.96<br />`Monthly Actual`: 118770.7","Period: 17213.05<br />`Monthly Actual`: 118553.0","Period: 17226.14<br />`Monthly Actual`: 118335.3","Period: 17239.23<br />`Monthly Actual`: 118117.6","Period: 17252.32<br />`Monthly Actual`: 117899.9","Period: 17265.41<br />`Monthly Actual`: 117682.2","Period: 17278.49<br />`Monthly Actual`: 117464.5","Period: 17291.58<br />`Monthly Actual`: 117246.8","Period: 17304.67<br />`Monthly Actual`: 117029.1","Period: 17317.76<br />`Monthly Actual`: 116811.4","Period: 17330.85<br />`Monthly Actual`: 116593.7","Period: 17343.94<br />`Monthly Actual`: 116376.0","Period: 17357.03<br />`Monthly Actual`: 116158.3","Period: 17370.11<br />`Monthly Actual`: 115940.6","Period: 17383.20<br />`Monthly Actual`: 115722.9","Period: 17396.29<br />`Monthly Actual`: 115505.2","Period: 17409.38<br />`Monthly Actual`: 115287.5","Period: 17422.47<br />`Monthly Actual`: 115069.8","Period: 17435.56<br />`Monthly Actual`: 114852.1","Period: 17448.65<br />`Monthly Actual`: 114634.4","Period: 17461.73<br />`Monthly Actual`: 114416.7","Period: 17474.82<br />`Monthly Actual`: 114199.0","Period: 17487.91<br />`Monthly Actual`: 113981.3","Period: 17501.00<br />`Monthly Actual`: 113763.6","Period: 17501.00<br />`Monthly Actual`: 113763.6","Period: 17501.00<br />`Monthly Actual`: 113763.6","Period: 17487.91<br />`Monthly Actual`: 113981.3","Period: 17474.82<br />`Monthly Actual`: 114199.0","Period: 17461.73<br />`Monthly Actual`: 114416.7","Period: 17448.65<br />`Monthly Actual`: 114634.4","Period: 17435.56<br />`Monthly Actual`: 114852.1","Period: 17422.47<br />`Monthly Actual`: 115069.8","Period: 17409.38<br />`Monthly Actual`: 115287.5","Period: 17396.29<br />`Monthly Actual`: 115505.2","Period: 17383.20<br />`Monthly Actual`: 115722.9","Period: 17370.11<br />`Monthly Actual`: 115940.6","Period: 17357.03<br />`Monthly Actual`: 116158.3","Period: 17343.94<br />`Monthly Actual`: 116376.0","Period: 17330.85<br />`Monthly Actual`: 116593.7","Period: 17317.76<br />`Monthly Actual`: 116811.4","Period: 17304.67<br />`Monthly Actual`: 117029.1","Period: 17291.58<br />`Monthly Actual`: 117246.8","Period: 17278.49<br />`Monthly Actual`: 117464.5","Period: 17265.41<br />`Monthly Actual`: 117682.2","Period: 17252.32<br />`Monthly Actual`: 117899.9","Period: 17239.23<br />`Monthly Actual`: 118117.6","Period: 17226.14<br />`Monthly Actual`: 118335.3","Period: 17213.05<br />`Monthly Actual`: 118553.0","Period: 17199.96<br />`Monthly Actual`: 118770.7","Period: 17186.87<br />`Monthly Actual`: 118988.4","Period: 17173.78<br />`Monthly Actual`: 119206.1","Period: 17160.70<br />`Monthly Actual`: 119423.8","Period: 17147.61<br />`Monthly Actual`: 119641.5","Period: 17134.52<br />`Monthly Actual`: 119859.2","Period: 17121.43<br />`Monthly Actual`: 120077.0","Period: 17108.34<br />`Monthly Actual`: 120294.7","Period: 17095.25<br />`Monthly Actual`: 120512.4","Period: 17082.16<br />`Monthly Actual`: 120730.1","Period: 17069.08<br />`Monthly Actual`: 120947.8","Period: 17055.99<br />`Monthly Actual`: 121165.5","Period: 17042.90<br />`Monthly Actual`: 121383.2","Period: 17029.81<br />`Monthly Actual`: 121600.9","Period: 17016.72<br />`Monthly Actual`: 121818.6","Period: 17003.63<br />`Monthly Actual`: 122036.3","Period: 16990.54<br />`Monthly Actual`: 122254.0","Period: 16977.46<br />`Monthly Actual`: 122471.7","Period: 16964.37<br />`Monthly Actual`: 122689.4","Period: 16951.28<br />`Monthly Actual`: 122907.1","Period: 16938.19<br />`Monthly Actual`: 123124.8","Period: 16925.10<br />`Monthly Actual`: 123342.5","Period: 16912.01<br />`Monthly Actual`: 123560.2","Period: 16898.92<br />`Monthly Actual`: 123777.9","Period: 16885.84<br />`Monthly Actual`: 123995.6","Period: 16872.75<br />`Monthly Actual`: 124213.3","Period: 16859.66<br />`Monthly Actual`: 124431.0","Period: 16846.57<br />`Monthly Actual`: 124648.7","Period: 16833.48<br />`Monthly Actual`: 124866.4","Period: 16820.39<br />`Monthly Actual`: 125084.1","Period: 16807.30<br />`Monthly Actual`: 125301.8","Period: 16794.22<br />`Monthly Actual`: 125519.5","Period: 16781.13<br />`Monthly Actual`: 125737.2","Period: 16768.04<br />`Monthly Actual`: 125954.9","Period: 16754.95<br />`Monthly Actual`: 126172.6","Period: 16741.86<br />`Monthly Actual`: 126390.3","Period: 16728.77<br />`Monthly Actual`: 126608.0","Period: 16715.68<br />`Monthly Actual`: 126825.7","Period: 16702.59<br />`Monthly Actual`: 127043.4","Period: 16689.51<br />`Monthly Actual`: 127261.1","Period: 16676.42<br />`Monthly Actual`: 127478.8","Period: 16663.33<br />`Monthly Actual`: 127696.5","Period: 16650.24<br />`Monthly Actual`: 127914.2","Period: 16637.15<br />`Monthly Actual`: 128131.9","Period: 16624.06<br />`Monthly Actual`: 128349.6","Period: 16610.97<br />`Monthly Actual`: 128567.3","Period: 16597.89<br />`Monthly Actual`: 128785.0","Period: 16584.80<br />`Monthly Actual`: 129002.7","Period: 16571.71<br />`Monthly Actual`: 129220.4","Period: 16558.62<br />`Monthly Actual`: 129438.1","Period: 16545.53<br />`Monthly Actual`: 129655.8","Period: 16532.44<br />`Monthly Actual`: 129873.5","Period: 16519.35<br />`Monthly Actual`: 130091.2","Period: 16506.27<br />`Monthly Actual`: 130308.9","Period: 16493.18<br />`Monthly Actual`: 130526.6","Period: 16480.09<br />`Monthly Actual`: 130744.4","Period: 16467.00<br />`Monthly Actual`: 130962.1","Period: 16467.00<br />`Monthly Actual`: 130962.1"],"type":"scatter","mode":"lines","line":{"width":3.77952755905512,"color":"transparent","dash":"solid"},"fill":"toself","fillcolor":"rgba(153,153,153,0.4)","hoveron":"points","hoverinfo":"x+y","showlegend":false,"xaxis":"x","yaxis":"y","frame":null}],"layout":{"margin":{"t":27.8721461187215,"r":7.30593607305936,"b":41.8264840182648,"l":66.4840182648402},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[16415.3,17552.7],"tickmode":"array","ticktext":["2015","2016","2017","2018"],"tickvals":[16436,16801,17167,17532],"categoryorder":"array","categoryarray":["2015","2016","2017","2018"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":{"text":"Period","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[84604.85,165392.15],"tickmode":"array","ticktext":["100,000","120,000","140,000","160,000"],"tickvals":[100000,120000,140000,160000],"categoryorder":"array","categoryarray":["100,000","120,000","140,000","160,000"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"x","title":{"text":"Mean Distance Between Failures (Miles)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895}},"hovermode":"closest","barmode":"relative","title":{"text":"Subway cars are breaking down more frequently.","font":{"size":15}}},"config":{"doubleClick":"reset","showSendToCloud":false,"displayModeBar":false,"scrollZoom":false},"source":"A","attrs":{"2a6460cb49bb":{"x":{},"y":{},"type":"scatter"},"2a646dd7dcf":{"x":{},"y":{}}},"cur_data":"2a6460cb49bb","visdat":{"2a6460cb49bb":["function (y) ","x"],"2a646dd7dcf":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+<p>There is a lot of information that can be lost in rapid-fire chart presentation, but the overall theme is that the subways of New York City are less reliable, break down more, and yet are responsible for moving more and more people.</p>
+<p>An interesting note is that when looking at the MTA’s <a href="http://dashboard.mta.info/"><strong>performance dashboard</strong></a>, their charts use the same underlying data to tell a very different story.</p>
+<p><img src="MTA-dash2.jpg" /></p>
+<p><img src="MTA-dash1.jpg" /></p>
+<p>This is a perfect opportunity to weigh in on the <a href="https://qz.com/418083/its-ok-not-to-start-your-y-axis-at-zero/"><strong>perennial debate</strong></a> around <a href="https://guides.library.duke.edu/datavis/topten"><strong>truncated y axes</strong></a> with a concrete example. As is the case in most methodology questions, there are very few decisions that have a clear cut answer without room for nuance. When considering truncated y axes, one should express the question they are answering about their data in the decision.</p>
+<p>In subway performance metrics, I don’t believe an axis that goes from 0-100% is truthfully expressing the question of whether the network is increasing or decreasing in performance. We do not care about a subway system that has a 0% On-Time Performance because such a system would not exist. We care more about comparing historic to current performance, and leaving a chart full of white space implies stability and lack of change in performance where that is not the case. It would be equally misleading if I were to reduce the axes to a percent or two to imply volatility where there is none, but there is a clear and consistent trend of worsening performance that is not insignificant across multiple metrics. For these reasons, the MTA should reconsider their philosophy for how they communicate data to the public.</p>
+<!--radix_placeholder_article_footer-->
+<!--/radix_placeholder_article_footer-->
+</div>
+
+<div class="d-appendix">
+</div>
+
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_appendices-->
+<div class="appendix-bottom">
+<h3 id="updates-and-corrections">Corrections</h3>
+<p>If you see mistakes or want to suggest changes, please <a href="https://github.com/jbixon13/Radix-blog/issues/new">create an issue</a> on the source repository.</p>
+</div>
+<!--/radix_placeholder_appendices-->
+<!--radix_placeholder_navigation_after_body-->
+<!--/radix_placeholder_navigation_after_body-->
+
+</body>
+
+</html>
