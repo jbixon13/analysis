@@ -1,0 +1,92 @@
+---
+title: "A date with Mapdeck"
+description: |
+  Deck.gl is cool, Deck.gl in R is cooler.
+preview: preview.jpg
+author:
+  - name: Jason Bixon
+    url: https://jasonbixonblog.netlify.com
+    affiliation: Merkle Inc.
+    affiliation_url: https://merkleinc.com
+date: 06-16-2019
+repository_url: https://github.com/jbixon13/Radix-blog
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r}
+library(tidyverse)
+library(sf)
+library(tidytransit)
+library(mapdeck)
+set_token(Sys.getenv('MAPBOX')) # must use your own Mapbox Access Token if reproducing
+```
+
+```{r}
+# read GTFS zip file in, add geo 
+MTA <- tidytransit::read_gtfs('data/gtfs.zip') %>% 
+  gtfs_as_sf()
+```
+
+
+```{r}
+meteorite <- readRDS('data/sf.rds')
+```
+
+
+```{r}
+times <- MTA$stop_times
+routes <- MTA$trips
+geometry_stops <- MTA$.$stops_sf
+```
+
+```{r}
+join <- times %>% 
+  left_join(geometry_stops, by = 'stop_id')
+```
+
+```{r}
+min <- min(MTA$stop_times$arrival_time)
+max <- max(MTA$stop_times$arrival_time)
+```
+
+```{r}
+ min <- tibble(x = c(-73.898583, -73.90087, -73.904834),
+               y = c(40.889248, 40.884667, 40.878856),
+               z = c(0, 0, 0),
+               m = c(0, 1, 2),
+               name = c('trip', 'trip', 'trip')
+               
+                   ) %>% 
+  st_as_sf(coords = c('x', 'y', 'z'), crs = 4326)
+
+#s1 <- min(min$m)
+#e1 <- max(min$m)
+```
+
+### Coming soon.
+
+```{r layout='l-page', fig.height=4, out.width='100%', fig.align='center'} 
+mapdeck(style ='mapbox://styles/jbixon/cjxchrj87086s1ct8cs8m351s', # customized map with buildings added
+        location = c(-73.987341, 40.724758),
+        bearing = 14.9,
+        zoom = 12.1,
+        pitch = 60) 
+  #add_trips(data = min,
+  #          start_time = s1,
+  #          end_time = e1,
+  #          trail_length = 50,
+  #          stroke_colour = 'name')
+```
+
+***
+
+Distill is a publication format for scientific and technical writing, native to the web.
+
+Learn more about using Distill at <https://rstudio.github.io/distill>.
+
